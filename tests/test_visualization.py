@@ -7,7 +7,7 @@ from synthetic_control.visualization import (
     plot_effect_distribution,
     plot_weights
 )
-from tests.test_base import create_test_data
+from .test_base import create_test_data
 
 def test_plot_synthetic_control():
     """Test synthetic control plotting function."""

@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 import pandas as pd
 from synthetic_control import ClassicSyntheticControl
-from tests.test_base import create_test_data
+from .test_base import create_test_data
 
 def test_classic_synthetic_control_initialization():
     """Test ClassicSyntheticControl initialization."""
