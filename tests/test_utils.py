@@ -35,10 +35,8 @@ def test_validate_data():
     """Тест функции validate_data."""
     data = create_test_data()
     
-    # Тест с корректными данными
     validate_data(data, ['date', 'shop_id', 'metric'])
     
-    # Тест с отсутствующими колонками
     with pytest.raises(ValueError):
         validate_data(data, ['date', 'shop_id', 'metric', 'missing_column'])
 
@@ -102,7 +100,6 @@ def test_prepare_data_for_synthetic_control():
     assert isinstance(prepared_data['control_units'], list)
     assert isinstance(prepared_data['periods'], pd.DatetimeIndex)
     
-    # Проверка размерностей
     assert prepared_data['X'].shape[0] == len(prepared_data['y'])
     assert prepared_data['X'].shape[1] == len(prepared_data['control_units'])
     assert len(prepared_data['periods']) == prepared_data['X'].shape[0] 

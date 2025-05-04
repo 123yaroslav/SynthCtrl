@@ -12,7 +12,7 @@ Synthetic Control is a statistical method used for comparative case studies. It 
 This library provides implementations of:
 
 - **Classical Synthetic Control** (Abadie & Gardeazabal, 2003)
-- **Synthetic Difference-in-Differences** (Arkhangelsky et al., 2021)
+- **Synthetic Difference-in-Differences** (Arkhangelsky et al., 2019)
 
 ## Installation
 
@@ -23,10 +23,8 @@ pip install SynthCtrl
 ## Features
 
 - Easy-to-use API with scikit-learn-like interfaces
-- Automatic treatment date determination
 - Bootstrap for statistical inference
 - Comprehensive visualization tools
-- Detailed documentation and examples
 
 ## Quick Start
 
@@ -34,10 +32,8 @@ pip install SynthCtrl
 import pandas as pd
 from synthetic_control import ClassicSyntheticControl
 
-# Load data
 data = pd.read_csv("california_smoking.csv")
 
-# Initialize model
 sc = ClassicSyntheticControl(
     data=data,
     metric="cigarettes",
@@ -47,22 +43,17 @@ sc = ClassicSyntheticControl(
     after_treatment="after_treatment"
 )
 
-# Fit model
 sc.fit()
 
-# Predict counterfactual values
 predictions = sc.predict()
 
-# Estimate treatment effect
 effect = sc.estimate_effect()
 print(f"Average Treatment Effect: {effect['att']:.4f}")
 
-# Bootstrap for statistical inference
 bootstrap_results = sc.bootstrap_effect()
 print(f"Standard Error: {bootstrap_results['se']:.2f}")
 print(f"95% CI: [{bootstrap_results['ci_lower']:.2f}, {bootstrap_results['ci_upper']:.2f}]")
 
-# Visualize results
 sc.plot_model_results(figsize=(14, 7), show=True)
 ```
 
@@ -71,7 +62,6 @@ sc.plot_model_results(figsize=(14, 7), show=True)
 ```python
 from synthetic_control import SyntheticDIDModel
 
-# Initialize SDID model
 sdid_model = SyntheticDIDModel(
     data=data,
     metric="cigarettes",
@@ -81,10 +71,8 @@ sdid_model = SyntheticDIDModel(
     after_treatment="after_treatment"
 )
 
-# Fit model
 sdid_model.fit()
 
-# Visualize results
 sdid_model.plot_model_results(figsize=(14, 7), show=True)
 ```
 
@@ -108,7 +96,7 @@ If you use this library in your research, please cite:
 @software{SynthCtrl_python,
   author = {Yaroslav Rogoza},
   title = {SynthCtrl: A Python Library for Causal Inference},
-  year = {2023},
+  year = {2025},
   url = {https://github.com/123yaroslav/SynthCtrl},
 }
 ```

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from typing import Dict, Optional
+from typing import Dict, Optional, Tuple, Union, Any
 import seaborn as sns
 
 def plot_synthetic_control(
@@ -12,178 +12,286 @@ def plot_synthetic_control(
     treated: str,
     after_treatment: str,
     predictions: np.ndarray,
-    treatment_date: Optional[int] = None,
-    figsize: tuple = (12, 6),
+    treatment_date: Optional[str] = None,
+    figsize: Tuple[int, int] = (12, 6),
     title: str = "Synthetic Control",
     xlabel: str = "Date",
     ylabel: str = "Metric",
-    show: bool = False
+    show: bool = True,
+    save_path: Optional[str] = None,
+    model: Any = None,  # For backwards compatibility
 ) -> plt.Figure:
     """
-    Visualization of Synthetic Control results.
+    Plot the synthetic control results.
     
     Parameters
     ----------
     data : pd.DataFrame
-        Original data
+        The data used to train the model.
     metric : str
-        Metric name
+        The name of the column containing the metric to be predicted.
     period_index : str
-        Name of the period column
+        The name of the column containing the time periods.
     unit_id : str
-        Name of the unit identifier column
+        The name of the column containing the unit identifiers.
     treated : str
-        Name of the column indicating treated units
+        The name of the column indicating whether a unit is treated.
     after_treatment : str
-        Name of the column indicating periods after intervention
+        The name of the column indicating whether a time period is after treatment.
     predictions : np.ndarray
-        Predicted values
-    treatment_date : Optional[int]
-        Intervention date
-    figsize : tuple, default=(12, 6)
-        Figure size
-    title : str, default="Synthetic Control"
-        Figure title
-    xlabel : str, default="Date"
-        X-axis label
-    ylabel : str, default="Metric"
-        Y-axis label
-    show : bool, default=False
-        Whether to show the figure automatically
+        The predicted values for the treated unit.
+    treatment_date : str, optional
+        The date of treatment. If None, it will be inferred from the data.
+    figsize : tuple, optional
+        The size of the figure.
+    title : str, optional
+        The title of the plot.
+    xlabel : str, optional
+        The label for the x-axis.
+    ylabel : str, optional
+        The label for the y-axis.
+    show : bool, optional
+        Whether to display the plot.
+    save_path : str, optional
+        The path to save the plot. If None, the plot is not saved.
+    model : Any, optional
+        Deprecated. For backwards compatibility only.
         
     Returns
     -------
     plt.Figure
-        Figure object
+        The figure object.
     """
-    treated_data = data[data[treated]].sort_values(period_index)
-    periods = treated_data[period_index].values
-    actual = treated_data[metric].values
-
-    if len(predictions) != len(actual):
-        if len(predictions) > len(actual):
-            predictions = predictions[-len(actual):]
-        else:
-            raise ValueError("Length of predictions is less than length of actual data for treated unit.")
-
+    # Close any existing figures
+    plt.close('all')
+    
+    # Create figure
     fig, ax = plt.subplots(figsize=figsize)
-    ax.plot(periods, actual, label='Treated', color='blue')
-    ax.plot(periods, predictions, label='Synthetic Control', color='red', linestyle='--')
-
-    if treatment_date is not None:
-        ax.axvline(x=treatment_date, color='black', linestyle=':', label='Treatment')
-
-    ax.set_title(title)
+    
+    # Get treated unit data
+    treated_data = data[data[treated] == True]
+    
+    # Get time periods
+    periods = sorted(data[period_index].unique())
+    
+    # Determine treatment date if not provided
+    if treatment_date is None:
+        # Find the first period where after_treatment is True
+        first_after = treated_data[treated_data[after_treatment] == True][period_index].min()
+        if first_after is not None:
+            treatment_date = first_after
+        else:
+            # If no treatment date found, use the middle of the time series
+            treatment_date = periods[len(periods) // 2]
+    
+    # Plot treated values
+    treated_values = treated_data.sort_values(period_index)[metric].values
+    ax.plot(periods, treated_values, 'b-', label='Actual')
+    
+    # Plot synthetic control
+    ax.plot(periods, predictions, 'r--', label='Synthetic Control')
+    
+    # Add treatment line
+    treatment_index = periods.index(treatment_date) if treatment_date in periods else len(periods) // 2
+    ax.axvline(x=periods[treatment_index], color='g', linestyle='-', label='Treatment Date')
+    
+    # Set labels and title
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.legend()
-    ax.grid(True)
+    ax.set_title(title)
     
+    # Add legend
+    ax.legend()
+    
+    # Add grid
+    ax.grid(True, alpha=0.3)
+    
+    # Rotate x-axis labels if they are dates
+    if isinstance(periods[0], (pd.Timestamp, str)):
+        plt.xticks(rotation=45)
+    
+    plt.tight_layout()
+    
+    # Save if requested
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    
+    # Show if requested
     if show:
         plt.show()
-        
+    
     return fig
 
 def plot_effect_distribution(
     effects: np.ndarray,
     observed_effect: float,
-    figsize: tuple = (10, 6),
+    figsize: Tuple[int, int] = (10, 6),
     title: str = "Effect Distribution",
     xlabel: str = "Effect",
     ylabel: str = "Density",
-    show: bool = False
+    show: bool = True,
+    save_path: Optional[str] = None
 ) -> plt.Figure:
     """
-    Visualization of effect distribution.
+    Plot the distribution of placebo effects.
     
     Parameters
     ----------
     effects : np.ndarray
-        Array of effects
+        The array of bootstrap or placebo effects.
     observed_effect : float
-        Observed effect
-    figsize : tuple, default=(10, 6)
-        Figure size
-    title : str, default="Effect Distribution"
-        Figure title
-    xlabel : str, default="Effect"
-        X-axis label
-    ylabel : str, default="Density"
-        Y-axis label
-    show : bool, default=False
-        Whether to show the figure automatically
+        The observed effect for the treated unit.
+    figsize : tuple, optional
+        The size of the figure.
+    title : str, optional
+        The title of the plot.
+    xlabel : str, optional
+        The label for the x-axis.
+    ylabel : str, optional
+        The label for the y-axis.
+    show : bool, optional
+        Whether to display the plot.
+    save_path : str, optional
+        The path to save the plot. If None, the plot is not saved.
         
     Returns
     -------
     plt.Figure
-        Figure object
+        The figure object.
     """
+    # Close any existing figures
+    plt.close('all')
+    
+    # Create figure
     fig, ax = plt.subplots(figsize=figsize)
     
-    sns.histplot(effects, kde=True, ax=ax)
+    # Plot density of effects
+    sns.kdeplot(effects, ax=ax, color='blue', label='Placebo Effects')
     
+    # Plot observed effect
     ax.axvline(x=observed_effect, color='red', linestyle='--', label='Observed Effect')
     
-    ax.set_title(title)
+    # Calculate p-value (two-sided)
+    p_value = np.mean(np.abs(effects) >= np.abs(observed_effect))
+    
+    # Add p-value annotation
+    ax.annotate(f'p-value: {p_value:.4f}', 
+                xy=(0.05, 0.95), 
+                xycoords='axes fraction',
+                bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="black", alpha=0.8))
+    
+    # Set labels and title
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.legend()
-    ax.grid(True)
+    ax.set_title(title)
     
+    # Add legend
+    ax.legend()
+    
+    # Add grid
+    ax.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    
+    # Save if requested
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    
+    # Show if requested
     if show:
         plt.show()
     
     return fig
 
 def plot_weights(
-    weights: Dict[str, float],
-    figsize: tuple = (10, 6),
+    weights: Union[Dict[str, float], pd.Series],
+    figsize: Tuple[int, int] = (10, 6),
     title: str = "Control Unit Weights",
     xlabel: str = "Control Unit",
     ylabel: str = "Weight",
-    show: bool = False
+    show: bool = True,
+    save_path: Optional[str] = None,
+    top_n: Optional[int] = None,
+    horizontal: bool = False
 ) -> plt.Figure:
     """
-    Visualization of control unit weights.
+    Plot the weights assigned to control units.
     
     Parameters
     ----------
-    weights : Dict[str, float]
-        Dictionary with control unit weights
-    figsize : tuple, default=(10, 6)
-        Figure size
-    title : str, default="Control Unit Weights"
-        Figure title
-    xlabel : str, default="Control Unit"
-        X-axis label
-    ylabel : str, default="Weight"
-        Y-axis label
-    show : bool, default=False
-        Whether to show the figure automatically
+    weights : dict or pd.Series
+        The weights for each control unit.
+    figsize : tuple, optional
+        The size of the figure.
+    title : str, optional
+        The title of the plot.
+    xlabel : str, optional
+        The label for the x-axis.
+    ylabel : str, optional
+        The label for the y-axis.
+    show : bool, optional
+        Whether to display the plot.
+    save_path : str, optional
+        The path to save the plot. If None, the plot is not saved.
+    top_n : int, optional
+        If provided, only plot the top N units by weight.
+    horizontal : bool, optional
+        If True, plot horizontal bars instead of vertical.
         
     Returns
     -------
     plt.Figure
-        Figure object
+        The figure object.
     """
+    # Close any existing figures
+    plt.close('all')
+    
+    # Convert dict to Series if needed
+    if isinstance(weights, dict):
+        weights = pd.Series(weights)
+    
+    # Sort weights
+    weights = weights.sort_values(ascending=False)
+    
+    # Take top_n if specified
+    if top_n is not None and top_n < len(weights):
+        weights = weights.iloc[:top_n]
+    
+    # Create figure
     fig, ax = plt.subplots(figsize=figsize)
     
-    units = list(weights.keys())
-    values = list(weights.values())
+    # Plot horizontal or vertical bars
+    if horizontal:
+        weights.plot(kind='barh', ax=ax)
+    else:
+        weights.plot(kind='bar', ax=ax)
     
-    ax.bar(units, values)
-    
-    ax.set_title(title)
+    # Set labels and title
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.grid(True)
+    ax.set_title(title)
     
-    plt.xticks(rotation=45)
+    # Add grid
+    ax.grid(True, alpha=0.3)
     
+    # Add value labels
+    for i, (_, weight) in enumerate(weights.items()):
+        if horizontal:
+            ax.text(weight + 0.01, i, f'{weight:.3f}', va='center')
+        else:
+            ax.text(i, weight + 0.01, f'{weight:.3f}', ha='center')
+    
+    plt.tight_layout()
+    
+    # Save if requested
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    
+    # Show if requested
     if show:
         plt.show()
     
-    return fig 
+    return fig
 
 def plot_cumulative_effect(
     data: pd.DataFrame,
