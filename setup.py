@@ -12,7 +12,10 @@ setup(
         "pandas>=1.3.0",
         "scipy>=1.7.0",
         "matplotlib>=3.4.0",
-        "seaborn>=0.11.0"
+        "seaborn>=0.11.0",
+        "statsmodels>=0.13.0",
+        "joblib>=1.1.0",
+        "cvxpy>=1.2.0"
     ],
     python_requires=">=3.8",
     classifiers=[
