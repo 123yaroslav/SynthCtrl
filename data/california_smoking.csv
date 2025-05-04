@@ -1,0 +1,1210 @@
+state,cigarettes,unit,treated,year,after_treatment
+Alabama,89.80000305,0,False,1970,False
+Alabama,95.40000153,0,False,1971,False
+Alabama,101.0999985,0,False,1972,False
+Alabama,102.9000015,0,False,1973,False
+Alabama,108.1999969,0,False,1974,False
+Alabama,111.6999969,0,False,1975,False
+Alabama,116.1999969,0,False,1976,False
+Alabama,117.0999985,0,False,1977,False
+Alabama,123.0,0,False,1978,False
+Alabama,121.4000015,0,False,1979,False
+Alabama,123.1999969,0,False,1980,False
+Alabama,119.5999985,0,False,1981,False
+Alabama,119.0999985,0,False,1982,False
+Alabama,116.3000031,0,False,1983,False
+Alabama,113.0,0,False,1984,False
+Alabama,114.5,0,False,1985,False
+Alabama,116.3000031,0,False,1986,False
+Alabama,114.0,0,False,1987,False
+Alabama,112.0999985,0,False,1988,False
+Alabama,105.5999985,0,False,1989,True
+Alabama,108.5999985,0,False,1990,True
+Alabama,107.9000015,0,False,1991,True
+Alabama,109.0999985,0,False,1992,True
+Alabama,108.5,0,False,1993,True
+Alabama,107.0999985,0,False,1994,True
+Alabama,102.5999985,0,False,1995,True
+Alabama,101.4000015,0,False,1996,True
+Alabama,104.9000015,0,False,1997,True
+Alabama,106.1999969,0,False,1998,True
+Alabama,100.6999969,0,False,1999,True
+Alabama,96.19999695,0,False,2000,True
+Arkansas,100.3000031,1,False,1970,False
+Arkansas,104.0999985,1,False,1971,False
+Arkansas,103.9000015,1,False,1972,False
+Arkansas,108.0,1,False,1973,False
+Arkansas,109.6999969,1,False,1974,False
+Arkansas,114.8000031,1,False,1975,False
+Arkansas,119.0999985,1,False,1976,False
+Arkansas,122.5999985,1,False,1977,False
+Arkansas,127.3000031,1,False,1978,False
+Arkansas,126.5,1,False,1979,False
+Arkansas,131.8000031,1,False,1980,False
+Arkansas,128.6999969,1,False,1981,False
+Arkansas,127.4000015,1,False,1982,False
+Arkansas,128.0,1,False,1983,False
+Arkansas,123.0999985,1,False,1984,False
+Arkansas,125.8000031,1,False,1985,False
+Arkansas,126.0,1,False,1986,False
+Arkansas,122.3000031,1,False,1987,False
+Arkansas,121.5,1,False,1988,False
+Arkansas,118.3000031,1,False,1989,True
+Arkansas,113.0999985,1,False,1990,True
+Arkansas,116.8000031,1,False,1991,True
+Arkansas,126.0,1,False,1992,True
+Arkansas,113.8000031,1,False,1993,True
+Arkansas,108.8000031,1,False,1994,True
+Arkansas,113.0,1,False,1995,True
+Arkansas,110.6999969,1,False,1996,True
+Arkansas,108.6999969,1,False,1997,True
+Arkansas,109.5,1,False,1998,True
+Arkansas,104.8000031,1,False,1999,True
+Arkansas,99.40000153,1,False,2000,True
+Colorado,124.8000031,3,False,1970,False
+Colorado,125.5,3,False,1971,False
+Colorado,134.3000031,3,False,1972,False
+Colorado,137.8999939,3,False,1973,False
+Colorado,132.8000031,3,False,1974,False
+Colorado,131.0,3,False,1975,False
+Colorado,134.1999969,3,False,1976,False
+Colorado,132.0,3,False,1977,False
+Colorado,129.1999969,3,False,1978,False
+Colorado,131.5,3,False,1979,False
+Colorado,131.0,3,False,1980,False
+Colorado,133.8000031,3,False,1981,False
+Colorado,130.5,3,False,1982,False
+Colorado,125.3000031,3,False,1983,False
+Colorado,119.6999969,3,False,1984,False
+Colorado,112.4000015,3,False,1985,False
+Colorado,109.9000015,3,False,1986,False
+Colorado,102.4000015,3,False,1987,False
+Colorado,94.59999847,3,False,1988,False
+Colorado,88.80000305,3,False,1989,True
+Colorado,87.40000153,3,False,1990,True
+Colorado,90.19999695,3,False,1991,True
+Colorado,88.30000305,3,False,1992,True
+Colorado,88.59999847,3,False,1993,True
+Colorado,89.09999847,3,False,1994,True
+Colorado,85.40000153,3,False,1995,True
+Colorado,83.09999847,3,False,1996,True
+Colorado,81.30000305,3,False,1997,True
+Colorado,81.19999695,3,False,1998,True
+Colorado,79.59999847,3,False,1999,True
+Colorado,73.0,3,False,2000,True
+Connecticut,120.0,4,False,1970,False
+Connecticut,117.5999985,4,False,1971,False
+Connecticut,110.8000031,4,False,1972,False
+Connecticut,109.3000031,4,False,1973,False
+Connecticut,112.4000015,4,False,1974,False
+Connecticut,110.1999969,4,False,1975,False
+Connecticut,113.4000015,4,False,1976,False
+Connecticut,117.3000031,4,False,1977,False
+Connecticut,117.5,4,False,1978,False
+Connecticut,117.4000015,4,False,1979,False
+Connecticut,118.0,4,False,1980,False
+Connecticut,116.4000015,4,False,1981,False
+Connecticut,114.6999969,4,False,1982,False
+Connecticut,114.0999985,4,False,1983,False
+Connecticut,112.5,4,False,1984,False
+Connecticut,111.0,4,False,1985,False
+Connecticut,108.5,4,False,1986,False
+Connecticut,109.0,4,False,1987,False
+Connecticut,104.8000031,4,False,1988,False
+Connecticut,100.5999985,4,False,1989,True
+Connecticut,91.5,4,False,1990,True
+Connecticut,86.69999695,4,False,1991,True
+Connecticut,83.5,4,False,1992,True
+Connecticut,79.09999847,4,False,1993,True
+Connecticut,76.59999847,4,False,1994,True
+Connecticut,79.30000305,4,False,1995,True
+Connecticut,76.0,4,False,1996,True
+Connecticut,75.90000153,4,False,1997,True
+Connecticut,75.5,4,False,1998,True
+Connecticut,73.40000153,4,False,1999,True
+Connecticut,71.40000153,4,False,2000,True
+Delaware,155.0,5,False,1970,False
+Delaware,161.1000061,5,False,1971,False
+Delaware,156.3000031,5,False,1972,False
+Delaware,154.6999969,5,False,1973,False
+Delaware,151.3000031,5,False,1974,False
+Delaware,147.6000061,5,False,1975,False
+Delaware,153.0,5,False,1976,False
+Delaware,153.3000031,5,False,1977,False
+Delaware,155.5,5,False,1978,False
+Delaware,150.1999969,5,False,1979,False
+Delaware,150.5,5,False,1980,False
+Delaware,152.6000061,5,False,1981,False
+Delaware,154.1000061,5,False,1982,False
+Delaware,149.6000061,5,False,1983,False
+Delaware,144.0,5,False,1984,False
+Delaware,144.5,5,False,1985,False
+Delaware,142.3999939,5,False,1986,False
+Delaware,141.0,5,False,1987,False
+Delaware,137.1000061,5,False,1988,False
+Delaware,131.6999969,5,False,1989,True
+Delaware,127.1999969,5,False,1990,True
+Delaware,118.8000031,5,False,1991,True
+Delaware,120.0,5,False,1992,True
+Delaware,123.8000031,5,False,1993,True
+Delaware,126.0999985,5,False,1994,True
+Delaware,127.1999969,5,False,1995,True
+Delaware,128.3000031,5,False,1996,True
+Delaware,124.0999985,5,False,1997,True
+Delaware,132.8000031,5,False,1998,True
+Delaware,139.5,5,False,1999,True
+Delaware,140.6999969,5,False,2000,True
+Georgia,109.9000015,6,False,1970,False
+Georgia,115.6999969,6,False,1971,False
+Georgia,117.0,6,False,1972,False
+Georgia,119.8000031,6,False,1973,False
+Georgia,123.6999969,6,False,1974,False
+Georgia,122.9000015,6,False,1975,False
+Georgia,125.9000015,6,False,1976,False
+Georgia,127.9000015,6,False,1977,False
+Georgia,130.6000061,6,False,1978,False
+Georgia,131.0,6,False,1979,False
+Georgia,134.0,6,False,1980,False
+Georgia,131.6999969,6,False,1981,False
+Georgia,131.1999969,6,False,1982,False
+Georgia,128.6000061,6,False,1983,False
+Georgia,126.3000031,6,False,1984,False
+Georgia,128.8000031,6,False,1985,False
+Georgia,129.0,6,False,1986,False
+Georgia,129.3000031,6,False,1987,False
+Georgia,124.0999985,6,False,1988,False
+Georgia,117.0999985,6,False,1989,True
+Georgia,113.8000031,6,False,1990,True
+Georgia,109.5999985,6,False,1991,True
+Georgia,109.1999969,6,False,1992,True
+Georgia,109.1999969,6,False,1993,True
+Georgia,107.8000031,6,False,1994,True
+Georgia,100.3000031,6,False,1995,True
+Georgia,102.6999969,6,False,1996,True
+Georgia,100.5999985,6,False,1997,True
+Georgia,100.5,6,False,1998,True
+Georgia,97.09999847,6,False,1999,True
+Georgia,88.40000153,6,False,2000,True
+Idaho,102.4000015,7,False,1970,False
+Idaho,108.5,7,False,1971,False
+Idaho,126.0999985,7,False,1972,False
+Idaho,121.8000031,7,False,1973,False
+Idaho,125.5999985,7,False,1974,False
+Idaho,123.3000031,7,False,1975,False
+Idaho,125.0999985,7,False,1976,False
+Idaho,125.0,7,False,1977,False
+Idaho,122.8000031,7,False,1978,False
+Idaho,117.5,7,False,1979,False
+Idaho,115.1999969,7,False,1980,False
+Idaho,114.0999985,7,False,1981,False
+Idaho,111.5,7,False,1982,False
+Idaho,111.3000031,7,False,1983,False
+Idaho,103.5999985,7,False,1984,False
+Idaho,100.6999969,7,False,1985,False
+Idaho,96.69999695,7,False,1986,False
+Idaho,95.0,7,False,1987,False
+Idaho,84.5,7,False,1988,False
+Idaho,78.40000153,7,False,1989,True
+Idaho,90.09999847,7,False,1990,True
+Idaho,85.40000153,7,False,1991,True
+Idaho,85.09999847,7,False,1992,True
+Idaho,86.69999695,7,False,1993,True
+Idaho,93.0,7,False,1994,True
+Idaho,78.19999695,7,False,1995,True
+Idaho,73.59999847,7,False,1996,True
+Idaho,75.0,7,False,1997,True
+Idaho,78.90000153,7,False,1998,True
+Idaho,75.09999847,7,False,1999,True
+Idaho,66.90000153,7,False,2000,True
+Illinois,124.8000031,8,False,1970,False
+Illinois,125.5999985,8,False,1971,False
+Illinois,126.5999985,8,False,1972,False
+Illinois,124.4000015,8,False,1973,False
+Illinois,131.8999939,8,False,1974,False
+Illinois,131.8000031,8,False,1975,False
+Illinois,134.3999939,8,False,1976,False
+Illinois,134.0,8,False,1977,False
+Illinois,136.6999969,8,False,1978,False
+Illinois,135.3000031,8,False,1979,False
+Illinois,135.1999969,8,False,1980,False
+Illinois,133.0,8,False,1981,False
+Illinois,130.6999969,8,False,1982,False
+Illinois,127.9000015,8,False,1983,False
+Illinois,124.0,8,False,1984,False
+Illinois,121.5999985,8,False,1985,False
+Illinois,118.1999969,8,False,1986,False
+Illinois,109.5,8,False,1987,False
+Illinois,107.5999985,8,False,1988,False
+Illinois,104.5999985,8,False,1989,True
+Illinois,94.09999847,8,False,1990,True
+Illinois,96.09999847,8,False,1991,True
+Illinois,94.80000305,8,False,1992,True
+Illinois,94.59999847,8,False,1993,True
+Illinois,85.69999695,8,False,1994,True
+Illinois,84.30000305,8,False,1995,True
+Illinois,81.80000305,8,False,1996,True
+Illinois,79.59999847,8,False,1997,True
+Illinois,80.30000305,8,False,1998,True
+Illinois,72.19999695,8,False,1999,True
+Illinois,70.0,8,False,2000,True
+Indiana,134.6000061,9,False,1970,False
+Indiana,139.3000031,9,False,1971,False
+Indiana,149.1999969,9,False,1972,False
+Indiana,156.0,9,False,1973,False
+Indiana,159.6000061,9,False,1974,False
+Indiana,162.3999939,9,False,1975,False
+Indiana,166.6000061,9,False,1976,False
+Indiana,173.0,9,False,1977,False
+Indiana,150.8999939,9,False,1978,False
+Indiana,148.8999939,9,False,1979,False
+Indiana,146.8999939,9,False,1980,False
+Indiana,148.5,9,False,1981,False
+Indiana,147.6999969,9,False,1982,False
+Indiana,143.0,9,False,1983,False
+Indiana,137.8000031,9,False,1984,False
+Indiana,135.3000031,9,False,1985,False
+Indiana,137.6000061,9,False,1986,False
+Indiana,134.0,9,False,1987,False
+Indiana,134.0,9,False,1988,False
+Indiana,132.5,9,False,1989,True
+Indiana,128.3000031,9,False,1990,True
+Indiana,127.1999969,9,False,1991,True
+Indiana,128.1999969,9,False,1992,True
+Indiana,126.8000031,9,False,1993,True
+Indiana,128.1999969,9,False,1994,True
+Indiana,135.3999939,9,False,1995,True
+Indiana,135.1000061,9,False,1996,True
+Indiana,135.3000031,9,False,1997,True
+Indiana,135.8999939,9,False,1998,True
+Indiana,133.3000031,9,False,1999,True
+Indiana,125.5,9,False,2000,True
+Iowa,108.5,10,False,1970,False
+Iowa,108.4000015,10,False,1971,False
+Iowa,109.4000015,10,False,1972,False
+Iowa,110.5999985,10,False,1973,False
+Iowa,116.0999985,10,False,1974,False
+Iowa,120.5,10,False,1975,False
+Iowa,124.4000015,10,False,1976,False
+Iowa,125.5,10,False,1977,False
+Iowa,127.0999985,10,False,1978,False
+Iowa,124.1999969,10,False,1979,False
+Iowa,124.5999985,10,False,1980,False
+Iowa,132.8999939,10,False,1981,False
+Iowa,116.1999969,10,False,1982,False
+Iowa,115.5999985,10,False,1983,False
+Iowa,111.1999969,10,False,1984,False
+Iowa,109.4000015,10,False,1985,False
+Iowa,104.0999985,10,False,1986,False
+Iowa,101.0999985,10,False,1987,False
+Iowa,100.1999969,10,False,1988,False
+Iowa,94.40000153,10,False,1989,True
+Iowa,95.40000153,10,False,1990,True
+Iowa,97.09999847,10,False,1991,True
+Iowa,95.19999695,10,False,1992,True
+Iowa,92.5,10,False,1993,True
+Iowa,93.40000153,10,False,1994,True
+Iowa,93.0,10,False,1995,True
+Iowa,94.0,10,False,1996,True
+Iowa,93.90000153,10,False,1997,True
+Iowa,94.0,10,False,1998,True
+Iowa,91.69999695,10,False,1999,True
+Iowa,88.90000153,10,False,2000,True
+Kansas,114.0,11,False,1970,False
+Kansas,102.8000031,11,False,1971,False
+Kansas,111.0,11,False,1972,False
+Kansas,115.1999969,11,False,1973,False
+Kansas,118.5999985,11,False,1974,False
+Kansas,123.4000015,11,False,1975,False
+Kansas,127.6999969,11,False,1976,False
+Kansas,127.9000015,11,False,1977,False
+Kansas,127.0999985,11,False,1978,False
+Kansas,126.4000015,11,False,1979,False
+Kansas,127.0999985,11,False,1980,False
+Kansas,132.0,11,False,1981,False
+Kansas,130.8999939,11,False,1982,False
+Kansas,127.5999985,11,False,1983,False
+Kansas,121.6999969,11,False,1984,False
+Kansas,115.6999969,11,False,1985,False
+Kansas,109.4000015,11,False,1986,False
+Kansas,105.1999969,11,False,1987,False
+Kansas,103.1999969,11,False,1988,False
+Kansas,96.5,11,False,1989,True
+Kansas,94.30000305,11,False,1990,True
+Kansas,91.80000305,11,False,1991,True
+Kansas,90.0,11,False,1992,True
+Kansas,89.90000153,11,False,1993,True
+Kansas,89.09999847,11,False,1994,True
+Kansas,90.09999847,11,False,1995,True
+Kansas,88.69999695,11,False,1996,True
+Kansas,89.19999695,11,False,1997,True
+Kansas,87.59999847,11,False,1998,True
+Kansas,83.30000305,11,False,1999,True
+Kansas,79.80000305,11,False,2000,True
+Kentucky,155.8000031,12,False,1970,False
+Kentucky,163.5,12,False,1971,False
+Kentucky,179.3999939,12,False,1972,False
+Kentucky,201.8999939,12,False,1973,False
+Kentucky,212.3999939,12,False,1974,False
+Kentucky,223.0,12,False,1975,False
+Kentucky,230.8999939,12,False,1976,False
+Kentucky,229.3999939,12,False,1977,False
+Kentucky,224.6999969,12,False,1978,False
+Kentucky,214.8999939,12,False,1979,False
+Kentucky,215.3000031,12,False,1980,False
+Kentucky,209.6999969,12,False,1981,False
+Kentucky,210.6000061,12,False,1982,False
+Kentucky,201.1000061,12,False,1983,False
+Kentucky,183.1999969,12,False,1984,False
+Kentucky,182.3999939,12,False,1985,False
+Kentucky,179.8000031,12,False,1986,False
+Kentucky,171.1999969,12,False,1987,False
+Kentucky,173.1999969,12,False,1988,False
+Kentucky,171.6000061,12,False,1989,True
+Kentucky,182.5,12,False,1990,True
+Kentucky,170.3999939,12,False,1991,True
+Kentucky,167.6000061,12,False,1992,True
+Kentucky,167.6000061,12,False,1993,True
+Kentucky,170.1000061,12,False,1994,True
+Kentucky,175.3000031,12,False,1995,True
+Kentucky,179.0,12,False,1996,True
+Kentucky,186.8000031,12,False,1997,True
+Kentucky,171.3000031,12,False,1998,True
+Kentucky,165.3000031,12,False,1999,True
+Kentucky,156.1999969,12,False,2000,True
+Louisiana,115.9000015,13,False,1970,False
+Louisiana,119.8000031,13,False,1971,False
+Louisiana,125.3000031,13,False,1972,False
+Louisiana,126.6999969,13,False,1973,False
+Louisiana,129.8999939,13,False,1974,False
+Louisiana,133.6000061,13,False,1975,False
+Louisiana,139.6000061,13,False,1976,False
+Louisiana,140.0,13,False,1977,False
+Louisiana,142.6999969,13,False,1978,False
+Louisiana,140.1000061,13,False,1979,False
+Louisiana,143.8000031,13,False,1980,False
+Louisiana,144.0,13,False,1981,False
+Louisiana,143.8999939,13,False,1982,False
+Louisiana,133.6999969,13,False,1983,False
+Louisiana,128.8999939,13,False,1984,False
+Louisiana,125.0,13,False,1985,False
+Louisiana,121.1999969,13,False,1986,False
+Louisiana,116.5,13,False,1987,False
+Louisiana,110.9000015,13,False,1988,False
+Louisiana,103.5999985,13,False,1989,True
+Louisiana,101.5,13,False,1990,True
+Louisiana,107.1999969,13,False,1991,True
+Louisiana,108.5,13,False,1992,True
+Louisiana,106.1999969,13,False,1993,True
+Louisiana,105.3000031,13,False,1994,True
+Louisiana,105.6999969,13,False,1995,True
+Louisiana,106.8000031,13,False,1996,True
+Louisiana,105.3000031,13,False,1997,True
+Louisiana,103.1999969,13,False,1998,True
+Louisiana,101.0,13,False,1999,True
+Louisiana,104.3000031,13,False,2000,True
+Maine,128.5,14,False,1970,False
+Maine,133.1999969,14,False,1971,False
+Maine,136.5,14,False,1972,False
+Maine,138.0,14,False,1973,False
+Maine,142.1000061,14,False,1974,False
+Maine,140.6999969,14,False,1975,False
+Maine,144.8999939,14,False,1976,False
+Maine,145.6000061,14,False,1977,False
+Maine,143.8999939,14,False,1978,False
+Maine,138.5,14,False,1979,False
+Maine,141.1999969,14,False,1980,False
+Maine,138.8999939,14,False,1981,False
+Maine,139.5,14,False,1982,False
+Maine,135.3999939,14,False,1983,False
+Maine,135.5,14,False,1984,False
+Maine,127.9000015,14,False,1985,False
+Maine,119.0,14,False,1986,False
+Maine,125.0,14,False,1987,False
+Maine,125.0,14,False,1988,False
+Maine,122.4000015,14,False,1989,True
+Maine,117.5,14,False,1990,True
+Maine,116.0999985,14,False,1991,True
+Maine,114.5,14,False,1992,True
+Maine,108.5,14,False,1993,True
+Maine,101.5999985,14,False,1994,True
+Maine,102.3000031,14,False,1995,True
+Maine,100.0,14,False,1996,True
+Maine,101.0999985,14,False,1997,True
+Maine,94.5,14,False,1998,True
+Maine,85.5,14,False,1999,True
+Maine,82.90000153,14,False,2000,True
+Minnesota,104.3000031,15,False,1970,False
+Minnesota,116.4000015,15,False,1971,False
+Minnesota,96.80000305,15,False,1972,False
+Minnesota,106.8000031,15,False,1973,False
+Minnesota,110.5999985,15,False,1974,False
+Minnesota,111.5,15,False,1975,False
+Minnesota,116.6999969,15,False,1976,False
+Minnesota,117.1999969,15,False,1977,False
+Minnesota,118.9000015,15,False,1978,False
+Minnesota,118.3000031,15,False,1979,False
+Minnesota,117.6999969,15,False,1980,False
+Minnesota,120.8000031,15,False,1981,False
+Minnesota,119.4000015,15,False,1982,False
+Minnesota,113.1999969,15,False,1983,False
+Minnesota,110.8000031,15,False,1984,False
+Minnesota,113.0,15,False,1985,False
+Minnesota,104.3000031,15,False,1986,False
+Minnesota,108.8000031,15,False,1987,False
+Minnesota,94.09999847,15,False,1988,False
+Minnesota,92.30000305,15,False,1989,True
+Minnesota,90.69999695,15,False,1990,True
+Minnesota,86.19999695,15,False,1991,True
+Minnesota,83.80000305,15,False,1992,True
+Minnesota,81.59999847,15,False,1993,True
+Minnesota,83.40000153,15,False,1994,True
+Minnesota,84.09999847,15,False,1995,True
+Minnesota,81.69999695,15,False,1996,True
+Minnesota,84.09999847,15,False,1997,True
+Minnesota,83.19999695,15,False,1998,True
+Minnesota,80.69999695,15,False,1999,True
+Minnesota,76.0,15,False,2000,True
+Mississippi,93.40000153,16,False,1970,False
+Mississippi,105.4000015,16,False,1971,False
+Mississippi,112.0999985,16,False,1972,False
+Mississippi,115.0,16,False,1973,False
+Mississippi,117.0999985,16,False,1974,False
+Mississippi,116.8000031,16,False,1975,False
+Mississippi,120.9000015,16,False,1976,False
+Mississippi,122.0999985,16,False,1977,False
+Mississippi,124.9000015,16,False,1978,False
+Mississippi,123.9000015,16,False,1979,False
+Mississippi,127.0,16,False,1980,False
+Mississippi,125.3000031,16,False,1981,False
+Mississippi,125.8000031,16,False,1982,False
+Mississippi,122.3000031,16,False,1983,False
+Mississippi,116.4000015,16,False,1984,False
+Mississippi,115.3000031,16,False,1985,False
+Mississippi,113.1999969,16,False,1986,False
+Mississippi,110.0,16,False,1987,False
+Mississippi,109.0,16,False,1988,False
+Mississippi,108.3000031,16,False,1989,True
+Mississippi,101.8000031,16,False,1990,True
+Mississippi,105.5999985,16,False,1991,True
+Mississippi,103.9000015,16,False,1992,True
+Mississippi,105.4000015,16,False,1993,True
+Mississippi,106.0,16,False,1994,True
+Mississippi,107.5,16,False,1995,True
+Mississippi,106.9000015,16,False,1996,True
+Mississippi,106.3000031,16,False,1997,True
+Mississippi,107.0,16,False,1998,True
+Mississippi,103.9000015,16,False,1999,True
+Mississippi,97.19999695,16,False,2000,True
+Missouri,121.3000031,17,False,1970,False
+Missouri,127.5999985,17,False,1971,False
+Missouri,130.0,17,False,1972,False
+Missouri,132.1000061,17,False,1973,False
+Missouri,135.3999939,17,False,1974,False
+Missouri,135.6000061,17,False,1975,False
+Missouri,139.5,17,False,1976,False
+Missouri,140.8000031,17,False,1977,False
+Missouri,141.8000031,17,False,1978,False
+Missouri,140.1999969,17,False,1979,False
+Missouri,142.1000061,17,False,1980,False
+Missouri,140.5,17,False,1981,False
+Missouri,139.6999969,17,False,1982,False
+Missouri,134.1000061,17,False,1983,False
+Missouri,130.0,17,False,1984,False
+Missouri,129.1999969,17,False,1985,False
+Missouri,128.8000031,17,False,1986,False
+Missouri,128.6999969,17,False,1987,False
+Missouri,127.4000015,17,False,1988,False
+Missouri,122.8000031,17,False,1989,True
+Missouri,119.0999985,17,False,1990,True
+Missouri,119.9000015,17,False,1991,True
+Missouri,122.3000031,17,False,1992,True
+Missouri,121.5999985,17,False,1993,True
+Missouri,119.4000015,17,False,1994,True
+Missouri,124.0,17,False,1995,True
+Missouri,124.0999985,17,False,1996,True
+Missouri,120.5999985,17,False,1997,True
+Missouri,120.0999985,17,False,1998,True
+Missouri,118.0,17,False,1999,True
+Missouri,113.8000031,17,False,2000,True
+Montana,111.1999969,18,False,1970,False
+Montana,115.5999985,18,False,1971,False
+Montana,122.1999969,18,False,1972,False
+Montana,119.9000015,18,False,1973,False
+Montana,121.9000015,18,False,1974,False
+Montana,123.6999969,18,False,1975,False
+Montana,124.9000015,18,False,1976,False
+Montana,127.0,18,False,1977,False
+Montana,127.1999969,18,False,1978,False
+Montana,120.3000031,18,False,1979,False
+Montana,122.0,18,False,1980,False
+Montana,121.0999985,18,False,1981,False
+Montana,122.4000015,18,False,1982,False
+Montana,113.6999969,18,False,1983,False
+Montana,110.0999985,18,False,1984,False
+Montana,103.5999985,18,False,1985,False
+Montana,97.80000305,18,False,1986,False
+Montana,91.69999695,18,False,1987,False
+Montana,87.09999847,18,False,1988,False
+Montana,86.19999695,18,False,1989,True
+Montana,84.69999695,18,False,1990,True
+Montana,82.90000153,18,False,1991,True
+Montana,86.59999847,18,False,1992,True
+Montana,86.0,18,False,1993,True
+Montana,88.19999695,18,False,1994,True
+Montana,90.5,18,False,1995,True
+Montana,87.30000305,18,False,1996,True
+Montana,88.90000153,18,False,1997,True
+Montana,89.09999847,18,False,1998,True
+Montana,82.59999847,18,False,1999,True
+Montana,75.5,18,False,2000,True
+Nebraska,108.0999985,19,False,1970,False
+Nebraska,108.5999985,19,False,1971,False
+Nebraska,104.9000015,19,False,1972,False
+Nebraska,106.5999985,19,False,1973,False
+Nebraska,110.5,19,False,1974,False
+Nebraska,114.0999985,19,False,1975,False
+Nebraska,118.0999985,19,False,1976,False
+Nebraska,117.6999969,19,False,1977,False
+Nebraska,117.4000015,19,False,1978,False
+Nebraska,116.0999985,19,False,1979,False
+Nebraska,116.3000031,19,False,1980,False
+Nebraska,117.0,19,False,1981,False
+Nebraska,117.0999985,19,False,1982,False
+Nebraska,110.8000031,19,False,1983,False
+Nebraska,107.6999969,19,False,1984,False
+Nebraska,105.0999985,19,False,1985,False
+Nebraska,103.0999985,19,False,1986,False
+Nebraska,101.3000031,19,False,1987,False
+Nebraska,92.90000153,19,False,1988,False
+Nebraska,93.80000305,19,False,1989,True
+Nebraska,89.90000153,19,False,1990,True
+Nebraska,92.40000153,19,False,1991,True
+Nebraska,90.59999847,19,False,1992,True
+Nebraska,91.09999847,19,False,1993,True
+Nebraska,85.90000153,19,False,1994,True
+Nebraska,88.5,19,False,1995,True
+Nebraska,86.19999695,19,False,1996,True
+Nebraska,85.5,19,False,1997,True
+Nebraska,83.09999847,19,False,1998,True
+Nebraska,86.59999847,19,False,1999,True
+Nebraska,77.59999847,19,False,2000,True
+Nevada,189.5,20,False,1970,False
+Nevada,190.5,20,False,1971,False
+Nevada,198.6000061,20,False,1972,False
+Nevada,201.5,20,False,1973,False
+Nevada,204.6999969,20,False,1974,False
+Nevada,205.1999969,20,False,1975,False
+Nevada,201.3999939,20,False,1976,False
+Nevada,190.8000031,20,False,1977,False
+Nevada,187.0,20,False,1978,False
+Nevada,183.3000031,20,False,1979,False
+Nevada,177.6999969,20,False,1980,False
+Nevada,171.8999939,20,False,1981,False
+Nevada,165.1000061,20,False,1982,False
+Nevada,159.1999969,20,False,1983,False
+Nevada,136.6000061,20,False,1984,False
+Nevada,146.6999969,20,False,1985,False
+Nevada,142.6000061,20,False,1986,False
+Nevada,147.6999969,20,False,1987,False
+Nevada,141.8999939,20,False,1988,False
+Nevada,137.8999939,20,False,1989,True
+Nevada,137.3000031,20,False,1990,True
+Nevada,115.5,20,False,1991,True
+Nevada,110.0,20,False,1992,True
+Nevada,108.0999985,20,False,1993,True
+Nevada,105.1999969,20,False,1994,True
+Nevada,100.9000015,20,False,1995,True
+Nevada,99.0,20,False,1996,True
+Nevada,95.59999847,20,False,1997,True
+Nevada,102.4000015,20,False,1998,True
+Nevada,103.9000015,20,False,1999,True
+Nevada,93.19999695,20,False,2000,True
+New Hampshire,265.7000122,21,False,1970,False
+New Hampshire,278.0,21,False,1971,False
+New Hampshire,296.2000122,21,False,1972,False
+New Hampshire,279.0,21,False,1973,False
+New Hampshire,269.7999878,21,False,1974,False
+New Hampshire,269.1000061,21,False,1975,False
+New Hampshire,290.5,21,False,1976,False
+New Hampshire,278.7999878,21,False,1977,False
+New Hampshire,269.6000061,21,False,1978,False
+New Hampshire,254.6000061,21,False,1979,False
+New Hampshire,247.8000031,21,False,1980,False
+New Hampshire,245.3999939,21,False,1981,False
+New Hampshire,239.8000031,21,False,1982,False
+New Hampshire,232.8999939,21,False,1983,False
+New Hampshire,215.1000061,21,False,1984,False
+New Hampshire,201.1000061,21,False,1985,False
+New Hampshire,195.8999939,21,False,1986,False
+New Hampshire,195.1000061,21,False,1987,False
+New Hampshire,180.3999939,21,False,1988,False
+New Hampshire,172.8999939,21,False,1989,True
+New Hampshire,152.3999939,21,False,1990,True
+New Hampshire,144.8000031,21,False,1991,True
+New Hampshire,143.6999969,21,False,1992,True
+New Hampshire,148.8999939,21,False,1993,True
+New Hampshire,153.8000031,21,False,1994,True
+New Hampshire,158.5,21,False,1995,True
+New Hampshire,158.0,21,False,1996,True
+New Hampshire,174.3999939,21,False,1997,True
+New Hampshire,173.8000031,21,False,1998,True
+New Hampshire,171.6999969,21,False,1999,True
+New Hampshire,147.3000031,21,False,2000,True
+New Mexico,90.0,22,False,1970,False
+New Mexico,92.59999847,22,False,1971,False
+New Mexico,99.30000305,22,False,1972,False
+New Mexico,98.90000153,22,False,1973,False
+New Mexico,100.3000031,22,False,1974,False
+New Mexico,103.0999985,22,False,1975,False
+New Mexico,102.4000015,22,False,1976,False
+New Mexico,102.4000015,22,False,1977,False
+New Mexico,103.0999985,22,False,1978,False
+New Mexico,101.0,22,False,1979,False
+New Mexico,102.6999969,22,False,1980,False
+New Mexico,103.0,22,False,1981,False
+New Mexico,97.5,22,False,1982,False
+New Mexico,96.30000305,22,False,1983,False
+New Mexico,88.90000153,22,False,1984,False
+New Mexico,88.0,22,False,1985,False
+New Mexico,88.19999695,22,False,1986,False
+New Mexico,82.30000305,22,False,1987,False
+New Mexico,77.69999695,22,False,1988,False
+New Mexico,74.40000153,22,False,1989,True
+New Mexico,70.80000305,22,False,1990,True
+New Mexico,69.90000153,22,False,1991,True
+New Mexico,71.40000153,22,False,1992,True
+New Mexico,69.0,22,False,1993,True
+New Mexico,68.19999695,22,False,1994,True
+New Mexico,67.0,22,False,1995,True
+New Mexico,65.69999695,22,False,1996,True
+New Mexico,61.79999924,22,False,1997,True
+New Mexico,62.59999847,22,False,1998,True
+New Mexico,59.70000076,22,False,1999,True
+New Mexico,53.79999924,22,False,2000,True
+North Carolina,172.3999939,23,False,1970,False
+North Carolina,187.6000061,23,False,1971,False
+North Carolina,214.1000061,23,False,1972,False
+North Carolina,226.5,23,False,1973,False
+North Carolina,227.3000031,23,False,1974,False
+North Carolina,226.0,23,False,1975,False
+North Carolina,230.1999969,23,False,1976,False
+North Carolina,217.0,23,False,1977,False
+North Carolina,205.5,23,False,1978,False
+North Carolina,197.3000031,23,False,1979,False
+North Carolina,187.8000031,23,False,1980,False
+North Carolina,179.3000031,23,False,1981,False
+North Carolina,179.0,23,False,1982,False
+North Carolina,169.8000031,23,False,1983,False
+North Carolina,160.6000061,23,False,1984,False
+North Carolina,156.3000031,23,False,1985,False
+North Carolina,154.3999939,23,False,1986,False
+North Carolina,150.5,23,False,1987,False
+North Carolina,146.0,23,False,1988,False
+North Carolina,139.3000031,23,False,1989,True
+North Carolina,133.6999969,23,False,1990,True
+North Carolina,132.6999969,23,False,1991,True
+North Carolina,128.8999939,23,False,1992,True
+North Carolina,129.6999969,23,False,1993,True
+North Carolina,112.6999969,23,False,1994,True
+North Carolina,124.9000015,23,False,1995,True
+North Carolina,129.6999969,23,False,1996,True
+North Carolina,125.5999985,23,False,1997,True
+North Carolina,126.0,23,False,1998,True
+North Carolina,113.0999985,23,False,1999,True
+North Carolina,109.0,23,False,2000,True
+North Dakota,93.80000305,24,False,1970,False
+North Dakota,98.5,24,False,1971,False
+North Dakota,103.8000031,24,False,1972,False
+North Dakota,108.6999969,24,False,1973,False
+North Dakota,110.5,24,False,1974,False
+North Dakota,117.9000015,24,False,1975,False
+North Dakota,125.4000015,24,False,1976,False
+North Dakota,122.1999969,24,False,1977,False
+North Dakota,121.9000015,24,False,1978,False
+North Dakota,121.3000031,24,False,1979,False
+North Dakota,123.6999969,24,False,1980,False
+North Dakota,125.6999969,24,False,1981,False
+North Dakota,126.8000031,24,False,1982,False
+North Dakota,119.5999985,24,False,1983,False
+North Dakota,109.4000015,24,False,1984,False
+North Dakota,103.1999969,24,False,1985,False
+North Dakota,99.80000305,24,False,1986,False
+North Dakota,92.30000305,24,False,1987,False
+North Dakota,87.09999847,24,False,1988,False
+North Dakota,84.09999847,24,False,1989,True
+North Dakota,77.09999847,24,False,1990,True
+North Dakota,85.19999695,24,False,1991,True
+North Dakota,74.30000305,24,False,1992,True
+North Dakota,83.0,24,False,1993,True
+North Dakota,81.0,24,False,1994,True
+North Dakota,80.59999847,24,False,1995,True
+North Dakota,80.80000305,24,False,1996,True
+North Dakota,77.5,24,False,1997,True
+North Dakota,79.09999847,24,False,1998,True
+North Dakota,74.69999695,24,False,1999,True
+North Dakota,72.5,24,False,2000,True
+Ohio,121.5999985,25,False,1970,False
+Ohio,124.5999985,25,False,1971,False
+Ohio,124.4000015,25,False,1972,False
+Ohio,120.5,25,False,1973,False
+Ohio,122.0999985,25,False,1974,False
+Ohio,122.5,25,False,1975,False
+Ohio,124.5999985,25,False,1976,False
+Ohio,127.3000031,25,False,1977,False
+Ohio,131.3000031,25,False,1978,False
+Ohio,130.8999939,25,False,1979,False
+Ohio,133.5,25,False,1980,False
+Ohio,132.8000031,25,False,1981,False
+Ohio,134.0,25,False,1982,False
+Ohio,130.0,25,False,1983,False
+Ohio,127.0999985,25,False,1984,False
+Ohio,126.6999969,25,False,1985,False
+Ohio,126.3000031,25,False,1986,False
+Ohio,124.5999985,25,False,1987,False
+Ohio,122.4000015,25,False,1988,False
+Ohio,118.5999985,25,False,1989,True
+Ohio,115.5,25,False,1990,True
+Ohio,113.1999969,25,False,1991,True
+Ohio,112.3000031,25,False,1992,True
+Ohio,108.9000015,25,False,1993,True
+Ohio,108.5999985,25,False,1994,True
+Ohio,111.6999969,25,False,1995,True
+Ohio,107.5999985,25,False,1996,True
+Ohio,108.5999985,25,False,1997,True
+Ohio,106.4000015,25,False,1998,True
+Ohio,104.0,25,False,1999,True
+Ohio,99.90000153,25,False,2000,True
+Oklahoma,108.4000015,26,False,1970,False
+Oklahoma,115.4000015,26,False,1971,False
+Oklahoma,121.6999969,26,False,1972,False
+Oklahoma,124.0999985,26,False,1973,False
+Oklahoma,130.5,26,False,1974,False
+Oklahoma,132.8999939,26,False,1975,False
+Oklahoma,138.6000061,26,False,1976,False
+Oklahoma,140.3999939,26,False,1977,False
+Oklahoma,143.6000061,26,False,1978,False
+Oklahoma,141.6000061,26,False,1979,False
+Oklahoma,141.6000061,26,False,1980,False
+Oklahoma,143.6999969,26,False,1981,False
+Oklahoma,147.0,26,False,1982,False
+Oklahoma,140.0,26,False,1983,False
+Oklahoma,128.1000061,26,False,1984,False
+Oklahoma,124.1999969,26,False,1985,False
+Oklahoma,119.9000015,26,False,1986,False
+Oklahoma,113.0999985,26,False,1987,False
+Oklahoma,103.5999985,26,False,1988,False
+Oklahoma,97.5,26,False,1989,True
+Oklahoma,88.40000153,26,False,1990,True
+Oklahoma,87.80000305,26,False,1991,True
+Oklahoma,86.30000305,26,False,1992,True
+Oklahoma,86.19999695,26,False,1993,True
+Oklahoma,104.8000031,26,False,1994,True
+Oklahoma,109.5,26,False,1995,True
+Oklahoma,110.8000031,26,False,1996,True
+Oklahoma,111.8000031,26,False,1997,True
+Oklahoma,112.1999969,26,False,1998,True
+Oklahoma,111.4000015,26,False,1999,True
+Oklahoma,108.9000015,26,False,2000,True
+Pennsylvania,107.3000031,27,False,1970,False
+Pennsylvania,106.3000031,27,False,1971,False
+Pennsylvania,109.0,27,False,1972,False
+Pennsylvania,110.6999969,27,False,1973,False
+Pennsylvania,114.1999969,27,False,1974,False
+Pennsylvania,114.5999985,27,False,1975,False
+Pennsylvania,118.8000031,27,False,1976,False
+Pennsylvania,120.0999985,27,False,1977,False
+Pennsylvania,122.3000031,27,False,1978,False
+Pennsylvania,122.5999985,27,False,1979,False
+Pennsylvania,124.0,27,False,1980,False
+Pennsylvania,125.1999969,27,False,1981,False
+Pennsylvania,123.3000031,27,False,1982,False
+Pennsylvania,125.3000031,27,False,1983,False
+Pennsylvania,115.3000031,27,False,1984,False
+Pennsylvania,115.8000031,27,False,1985,False
+Pennsylvania,113.9000015,27,False,1986,False
+Pennsylvania,110.5999985,27,False,1987,False
+Pennsylvania,107.5999985,27,False,1988,False
+Pennsylvania,107.0999985,27,False,1989,True
+Pennsylvania,101.3000031,27,False,1990,True
+Pennsylvania,102.5,27,False,1991,True
+Pennsylvania,96.19999695,27,False,1992,True
+Pennsylvania,94.69999695,27,False,1993,True
+Pennsylvania,95.40000153,27,False,1994,True
+Pennsylvania,95.40000153,27,False,1995,True
+Pennsylvania,93.30000305,27,False,1996,True
+Pennsylvania,92.90000153,27,False,1997,True
+Pennsylvania,92.09999847,27,False,1998,True
+Pennsylvania,91.09999847,27,False,1999,True
+Pennsylvania,87.90000153,27,False,2000,True
+Rhode Island,123.9000015,28,False,1970,False
+Rhode Island,123.1999969,28,False,1971,False
+Rhode Island,134.3999939,28,False,1972,False
+Rhode Island,142.0,28,False,1973,False
+Rhode Island,146.1000061,28,False,1974,False
+Rhode Island,154.6999969,28,False,1975,False
+Rhode Island,150.1999969,28,False,1976,False
+Rhode Island,148.8000031,28,False,1977,False
+Rhode Island,146.8000031,28,False,1978,False
+Rhode Island,145.8000031,28,False,1979,False
+Rhode Island,149.3000031,28,False,1980,False
+Rhode Island,151.1999969,28,False,1981,False
+Rhode Island,146.3000031,28,False,1982,False
+Rhode Island,135.8000031,28,False,1983,False
+Rhode Island,136.8999939,28,False,1984,False
+Rhode Island,133.3999939,28,False,1985,False
+Rhode Island,136.3000031,28,False,1986,False
+Rhode Island,124.4000015,28,False,1987,False
+Rhode Island,138.0,28,False,1988,False
+Rhode Island,120.8000031,28,False,1989,True
+Rhode Island,101.4000015,28,False,1990,True
+Rhode Island,103.5999985,28,False,1991,True
+Rhode Island,100.0999985,28,False,1992,True
+Rhode Island,94.09999847,28,False,1993,True
+Rhode Island,91.90000153,28,False,1994,True
+Rhode Island,90.80000305,28,False,1995,True
+Rhode Island,87.5,28,False,1996,True
+Rhode Island,90.0,28,False,1997,True
+Rhode Island,88.69999695,28,False,1998,True
+Rhode Island,86.90000153,28,False,1999,True
+Rhode Island,83.09999847,28,False,2000,True
+South Carolina,103.5999985,29,False,1970,False
+South Carolina,115.0,29,False,1971,False
+South Carolina,118.6999969,29,False,1972,False
+South Carolina,125.5,29,False,1973,False
+South Carolina,129.6999969,29,False,1974,False
+South Carolina,130.5,29,False,1975,False
+South Carolina,136.8000031,29,False,1976,False
+South Carolina,137.1999969,29,False,1977,False
+South Carolina,140.3999939,29,False,1978,False
+South Carolina,135.6999969,29,False,1979,False
+South Carolina,138.3000031,29,False,1980,False
+South Carolina,136.1000061,29,False,1981,False
+South Carolina,136.0,29,False,1982,False
+South Carolina,131.1000061,29,False,1983,False
+South Carolina,127.0,29,False,1984,False
+South Carolina,125.4000015,29,False,1985,False
+South Carolina,126.5999985,29,False,1986,False
+South Carolina,126.5999985,29,False,1987,False
+South Carolina,124.4000015,29,False,1988,False
+South Carolina,122.4000015,29,False,1989,True
+South Carolina,118.5999985,29,False,1990,True
+South Carolina,121.5,29,False,1991,True
+South Carolina,112.8000031,29,False,1992,True
+South Carolina,115.1999969,29,False,1993,True
+South Carolina,112.1999969,29,False,1994,True
+South Carolina,109.1999969,29,False,1995,True
+South Carolina,102.9000015,29,False,1996,True
+South Carolina,124.5,29,False,1997,True
+South Carolina,126.9000015,29,False,1998,True
+South Carolina,109.4000015,29,False,1999,True
+South Carolina,103.9000015,29,False,2000,True
+South Dakota,92.69999695,30,False,1970,False
+South Dakota,96.69999695,30,False,1971,False
+South Dakota,103.0,30,False,1972,False
+South Dakota,103.5,30,False,1973,False
+South Dakota,108.4000015,30,False,1974,False
+South Dakota,113.5,30,False,1975,False
+South Dakota,116.6999969,30,False,1976,False
+South Dakota,115.5999985,30,False,1977,False
+South Dakota,116.9000015,30,False,1978,False
+South Dakota,117.4000015,30,False,1979,False
+South Dakota,114.6999969,30,False,1980,False
+South Dakota,115.6999969,30,False,1981,False
+South Dakota,113.0,30,False,1982,False
+South Dakota,109.8000031,30,False,1983,False
+South Dakota,105.6999969,30,False,1984,False
+South Dakota,104.4000015,30,False,1985,False
+South Dakota,97.0,30,False,1986,False
+South Dakota,95.80000305,30,False,1987,False
+South Dakota,91.90000153,30,False,1988,False
+South Dakota,87.40000153,30,False,1989,True
+South Dakota,88.30000305,30,False,1990,True
+South Dakota,91.80000305,30,False,1991,True
+South Dakota,93.0,30,False,1992,True
+South Dakota,91.59999847,30,False,1993,True
+South Dakota,94.80000305,30,False,1994,True
+South Dakota,98.59999847,30,False,1995,True
+South Dakota,92.30000305,30,False,1996,True
+South Dakota,88.80000305,30,False,1997,True
+South Dakota,88.30000305,30,False,1998,True
+South Dakota,83.5,30,False,1999,True
+South Dakota,75.09999847,30,False,2000,True
+Tennessee,99.80000305,31,False,1970,False
+Tennessee,106.3000031,31,False,1971,False
+Tennessee,111.5,31,False,1972,False
+Tennessee,109.6999969,31,False,1973,False
+Tennessee,114.8000031,31,False,1974,False
+Tennessee,117.4000015,31,False,1975,False
+Tennessee,121.6999969,31,False,1976,False
+Tennessee,124.5999985,31,False,1977,False
+Tennessee,127.3000031,31,False,1978,False
+Tennessee,127.1999969,31,False,1979,False
+Tennessee,130.3999939,31,False,1980,False
+Tennessee,129.1000061,31,False,1981,False
+Tennessee,131.3999939,31,False,1982,False
+Tennessee,129.0,31,False,1983,False
+Tennessee,125.0999985,31,False,1984,False
+Tennessee,128.6999969,31,False,1985,False
+Tennessee,129.0,31,False,1986,False
+Tennessee,130.6000061,31,False,1987,False
+Tennessee,125.3000031,31,False,1988,False
+Tennessee,124.6999969,31,False,1989,True
+Tennessee,121.8000031,31,False,1990,True
+Tennessee,120.5999985,31,False,1991,True
+Tennessee,121.0,31,False,1992,True
+Tennessee,120.8000031,31,False,1993,True
+Tennessee,118.8000031,31,False,1994,True
+Tennessee,125.4000015,31,False,1995,True
+Tennessee,119.1999969,31,False,1996,True
+Tennessee,118.9000015,31,False,1997,True
+Tennessee,119.6999969,31,False,1998,True
+Tennessee,115.5999985,31,False,1999,True
+Tennessee,108.6999969,31,False,2000,True
+Texas,106.4000015,32,False,1970,False
+Texas,108.9000015,32,False,1971,False
+Texas,108.5999985,32,False,1972,False
+Texas,110.4000015,32,False,1973,False
+Texas,114.6999969,32,False,1974,False
+Texas,116.0,32,False,1975,False
+Texas,121.4000015,32,False,1976,False
+Texas,124.1999969,32,False,1977,False
+Texas,126.5999985,32,False,1978,False
+Texas,126.4000015,32,False,1979,False
+Texas,129.6999969,32,False,1980,False
+Texas,129.0,32,False,1981,False
+Texas,131.1999969,32,False,1982,False
+Texas,126.4000015,32,False,1983,False
+Texas,117.1999969,32,False,1984,False
+Texas,115.9000015,32,False,1985,False
+Texas,113.6999969,32,False,1986,False
+Texas,105.8000031,32,False,1987,False
+Texas,96.5,32,False,1988,False
+Texas,94.5,32,False,1989,True
+Texas,85.59999847,32,False,1990,True
+Texas,79.40000153,32,False,1991,True
+Texas,77.19999695,32,False,1992,True
+Texas,81.30000305,32,False,1993,True
+Texas,78.80000305,32,False,1994,True
+Texas,75.19999695,32,False,1995,True
+Texas,74.59999847,32,False,1996,True
+Texas,72.59999847,32,False,1997,True
+Texas,73.19999695,32,False,1998,True
+Texas,67.59999847,32,False,1999,True
+Texas,69.30000305,32,False,2000,True
+Utah,65.5,33,False,1970,False
+Utah,67.69999695,33,False,1971,False
+Utah,71.30000305,33,False,1972,False
+Utah,72.69999695,33,False,1973,False
+Utah,75.59999847,33,False,1974,False
+Utah,75.80000305,33,False,1975,False
+Utah,77.90000153,33,False,1976,False
+Utah,78.0,33,False,1977,False
+Utah,79.59999847,33,False,1978,False
+Utah,79.09999847,33,False,1979,False
+Utah,74.80000305,33,False,1980,False
+Utah,77.59999847,33,False,1981,False
+Utah,73.59999847,33,False,1982,False
+Utah,69.0,33,False,1983,False
+Utah,66.30000305,33,False,1984,False
+Utah,66.5,33,False,1985,False
+Utah,64.40000153,33,False,1986,False
+Utah,67.69999695,33,False,1987,False
+Utah,55.0,33,False,1988,False
+Utah,57.0,33,False,1989,True
+Utah,53.40000153,33,False,1990,True
+Utah,53.5,33,False,1991,True
+Utah,55.0,33,False,1992,True
+Utah,56.20000076,33,False,1993,True
+Utah,55.79999924,33,False,1994,True
+Utah,52.0,33,False,1995,True
+Utah,54.0,33,False,1996,True
+Utah,57.0,33,False,1997,True
+Utah,42.29999924,33,False,1998,True
+Utah,43.90000153,33,False,1999,True
+Utah,40.70000076,33,False,2000,True
+Vermont,122.5999985,34,False,1970,False
+Vermont,124.4000015,34,False,1971,False
+Vermont,138.0,34,False,1972,False
+Vermont,146.8000031,34,False,1973,False
+Vermont,151.8000031,34,False,1974,False
+Vermont,155.5,34,False,1975,False
+Vermont,171.1000061,34,False,1976,False
+Vermont,169.3999939,34,False,1977,False
+Vermont,162.3999939,34,False,1978,False
+Vermont,160.8999939,34,False,1979,False
+Vermont,161.6000061,34,False,1980,False
+Vermont,163.8000031,34,False,1981,False
+Vermont,162.3000031,34,False,1982,False
+Vermont,153.8000031,34,False,1983,False
+Vermont,144.3000031,34,False,1984,False
+Vermont,144.5,34,False,1985,False
+Vermont,131.1999969,34,False,1986,False
+Vermont,128.3000031,34,False,1987,False
+Vermont,128.6999969,34,False,1988,False
+Vermont,120.9000015,34,False,1989,True
+Vermont,124.3000031,34,False,1990,True
+Vermont,120.9000015,34,False,1991,True
+Vermont,126.5,34,False,1992,True
+Vermont,117.1999969,34,False,1993,True
+Vermont,120.3000031,34,False,1994,True
+Vermont,123.1999969,34,False,1995,True
+Vermont,102.5,34,False,1996,True
+Vermont,97.69999695,34,False,1997,True
+Vermont,97.0,34,False,1998,True
+Vermont,94.09999847,34,False,1999,True
+Vermont,88.90000153,34,False,2000,True
+Virginia,124.3000031,35,False,1970,False
+Virginia,128.3999939,35,False,1971,False
+Virginia,137.0,35,False,1972,False
+Virginia,143.1000061,35,False,1973,False
+Virginia,149.6000061,35,False,1974,False
+Virginia,152.6999969,35,False,1975,False
+Virginia,158.1000061,35,False,1976,False
+Virginia,157.6999969,35,False,1977,False
+Virginia,155.8999939,35,False,1978,False
+Virginia,151.8000031,35,False,1979,False
+Virginia,148.8999939,35,False,1980,False
+Virginia,149.8999939,35,False,1981,False
+Virginia,147.3999939,35,False,1982,False
+Virginia,144.6999969,35,False,1983,False
+Virginia,136.8000031,35,False,1984,False
+Virginia,134.6000061,35,False,1985,False
+Virginia,135.8000031,35,False,1986,False
+Virginia,133.0,35,False,1987,False
+Virginia,129.5,35,False,1988,False
+Virginia,122.5,35,False,1989,True
+Virginia,118.9000015,35,False,1990,True
+Virginia,109.0999985,35,False,1991,True
+Virginia,108.1999969,35,False,1992,True
+Virginia,105.4000015,35,False,1993,True
+Virginia,106.1999969,35,False,1994,True
+Virginia,106.6999969,35,False,1995,True
+Virginia,104.5999985,35,False,1996,True
+Virginia,108.0,35,False,1997,True
+Virginia,105.5999985,35,False,1998,True
+Virginia,102.0999985,35,False,1999,True
+Virginia,96.69999695,35,False,2000,True
+West Virginia,114.5,36,False,1970,False
+West Virginia,111.5,36,False,1971,False
+West Virginia,117.5,36,False,1972,False
+West Virginia,116.5999985,36,False,1973,False
+West Virginia,119.9000015,36,False,1974,False
+West Virginia,123.1999969,36,False,1975,False
+West Virginia,129.6999969,36,False,1976,False
+West Virginia,133.8999939,36,False,1977,False
+West Virginia,131.6000061,36,False,1978,False
+West Virginia,122.0999985,36,False,1979,False
+West Virginia,122.3000031,36,False,1980,False
+West Virginia,120.5,36,False,1981,False
+West Virginia,119.8000031,36,False,1982,False
+West Virginia,115.6999969,36,False,1983,False
+West Virginia,111.9000015,36,False,1984,False
+West Virginia,109.0999985,36,False,1985,False
+West Virginia,112.0999985,36,False,1986,False
+West Virginia,107.5,36,False,1987,False
+West Virginia,109.0999985,36,False,1988,False
+West Virginia,104.0,36,False,1989,True
+West Virginia,104.0999985,36,False,1990,True
+West Virginia,100.0999985,36,False,1991,True
+West Virginia,97.90000153,36,False,1992,True
+West Virginia,111.0,36,False,1993,True
+West Virginia,104.1999969,36,False,1994,True
+West Virginia,115.1999969,36,False,1995,True
+West Virginia,112.6999969,36,False,1996,True
+West Virginia,114.5,36,False,1997,True
+West Virginia,114.5999985,36,False,1998,True
+West Virginia,112.4000015,36,False,1999,True
+West Virginia,107.9000015,36,False,2000,True
+Wisconsin,106.4000015,37,False,1970,False
+Wisconsin,105.4000015,37,False,1971,False
+Wisconsin,108.8000031,37,False,1972,False
+Wisconsin,109.5,37,False,1973,False
+Wisconsin,111.8000031,37,False,1974,False
+Wisconsin,113.5,37,False,1975,False
+Wisconsin,115.4000015,37,False,1976,False
+Wisconsin,117.1999969,37,False,1977,False
+Wisconsin,116.6999969,37,False,1978,False
+Wisconsin,117.0999985,37,False,1979,False
+Wisconsin,117.5999985,37,False,1980,False
+Wisconsin,119.9000015,37,False,1981,False
+Wisconsin,115.5999985,37,False,1982,False
+Wisconsin,106.3000031,37,False,1983,False
+Wisconsin,105.5999985,37,False,1984,False
+Wisconsin,107.0,37,False,1985,False
+Wisconsin,105.4000015,37,False,1986,False
+Wisconsin,106.0,37,False,1987,False
+Wisconsin,102.5999985,37,False,1988,False
+Wisconsin,100.3000031,37,False,1989,True
+Wisconsin,94.0,37,False,1990,True
+Wisconsin,95.5,37,False,1991,True
+Wisconsin,96.19999695,37,False,1992,True
+Wisconsin,91.19999695,37,False,1993,True
+Wisconsin,91.80000305,37,False,1994,True
+Wisconsin,93.5,37,False,1995,True
+Wisconsin,92.09999847,37,False,1996,True
+Wisconsin,91.90000153,37,False,1997,True
+Wisconsin,88.69999695,37,False,1998,True
+Wisconsin,84.40000153,37,False,1999,True
+Wisconsin,80.09999847,37,False,2000,True
+Wyoming,132.1999969,38,False,1970,False
+Wyoming,131.6999969,38,False,1971,False
+Wyoming,140.0,38,False,1972,False
+Wyoming,141.1999969,38,False,1973,False
+Wyoming,145.8000031,38,False,1974,False
+Wyoming,160.6999969,38,False,1975,False
+Wyoming,161.5,38,False,1976,False
+Wyoming,160.3999939,38,False,1977,False
+Wyoming,160.3000031,38,False,1978,False
+Wyoming,168.6000061,38,False,1979,False
+Wyoming,158.1000061,38,False,1980,False
+Wyoming,163.1000061,38,False,1981,False
+Wyoming,157.6999969,38,False,1982,False
+Wyoming,141.1999969,38,False,1983,False
+Wyoming,128.8999939,38,False,1984,False
+Wyoming,125.6999969,38,False,1985,False
+Wyoming,124.8000031,38,False,1986,False
+Wyoming,110.4000015,38,False,1987,False
+Wyoming,114.3000031,38,False,1988,False
+Wyoming,111.4000015,38,False,1989,True
+Wyoming,96.90000153,38,False,1990,True
+Wyoming,109.0999985,38,False,1991,True
+Wyoming,110.8000031,38,False,1992,True
+Wyoming,108.4000015,38,False,1993,True
+Wyoming,111.1999969,38,False,1994,True
+Wyoming,115.0,38,False,1995,True
+Wyoming,110.3000031,38,False,1996,True
+Wyoming,108.8000031,38,False,1997,True
+Wyoming,102.9000015,38,False,1998,True
+Wyoming,104.8000031,38,False,1999,True
+Wyoming,90.5,38,False,2000,True
+California,123.0,2,True,1970,False
+California,121.0,2,True,1971,False
+California,123.5,2,True,1972,False
+California,124.4000015,2,True,1973,False
+California,126.6999969,2,True,1974,False
+California,127.0999985,2,True,1975,False
+California,128.0,2,True,1976,False
+California,126.4000015,2,True,1977,False
+California,126.0999985,2,True,1978,False
+California,121.9000015,2,True,1979,False
+California,120.1999969,2,True,1980,False
+California,118.5999985,2,True,1981,False
+California,115.4000015,2,True,1982,False
+California,110.8000031,2,True,1983,False
+California,104.8000031,2,True,1984,False
+California,102.8000031,2,True,1985,False
+California,99.69999695,2,True,1986,False
+California,97.5,2,True,1987,False
+California,90.09999847,2,True,1988,False
+California,82.40000153,2,True,1989,True
+California,77.80000305,2,True,1990,True
+California,68.69999695,2,True,1991,True
+California,67.5,2,True,1992,True
+California,63.40000153,2,True,1993,True
+California,58.59999847,2,True,1994,True
+California,56.40000153,2,True,1995,True
+California,54.5,2,True,1996,True
+California,53.79999924,2,True,1997,True
+California,52.29999924,2,True,1998,True
+California,47.20000076,2,True,1999,True
+California,41.59999847,2,True,2000,True
