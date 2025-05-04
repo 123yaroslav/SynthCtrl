@@ -36,7 +36,13 @@ class TestSyntheticDIDModel:
         self.df = pd.DataFrame(data)
         
         self.df['unit'] = self.df['unit'].astype('category')
-        self.df['period'] = self.df['period'].astype('category')
+        # Создаем упорядоченную категорию для периодов
+        period_cats = sorted(self.df['period'].unique(), key=lambda x: int(x.split('_')[1]))
+        self.df['period'] = pd.Categorical(
+            self.df['period'], 
+            categories=period_cats, 
+            ordered=True
+        )
     
     def test_initialization(self):
         """Test model initialization."""

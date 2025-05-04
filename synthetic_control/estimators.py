@@ -485,8 +485,18 @@ class SyntheticDIDModel(SyntheticControl):
         float
             Значение функции потерь
         """
+        valid_mask = ~np.isnan(y)
+        y_valid = y[valid_mask]
+        
+        if len(y_valid) == 0:
+            return np.inf
+            
         pred = X.T.dot(w)
-        return np.sqrt(np.mean((y - pred)**2))
+        
+        if len(pred) != len(y_valid):
+            pred = pred[:len(y_valid)] if len(pred) > len(y_valid) else np.pad(pred, (0, len(y_valid) - len(pred)))
+            
+        return np.sqrt(np.mean((y_valid - pred)**2))
     
     def loss_penalized(self, w, X, y, T_pre, zeta):
         """
@@ -510,7 +520,9 @@ class SyntheticDIDModel(SyntheticControl):
         float
             Значение функции потерь
         """
-        resid = X.dot(w) - y
+        y_valid = y[~np.isnan(y)]
+        X_valid = X[:len(y_valid)]
+        resid = X_valid.dot(w) - y_valid
         return np.sum(resid**2) + T_pre * (zeta**2) * np.sum(w[1:]**2)
 
     def calculate_regularization(self, data):
@@ -844,11 +856,9 @@ class SyntheticDIDModel(SyntheticControl):
         if not hasattr(self, 'att_'):
             self.fit()
         
-        weights_dict = self.unit_weights_.to_dict()
-        
         return {
             'att': self.att_,
-            'weights': weights_dict
+            'weights': self.unit_weights_
         }
 
     def bootstrap_effect(self, alpha=0.05):
