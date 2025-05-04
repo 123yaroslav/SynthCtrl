@@ -7,7 +7,7 @@ with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'),
 
 setup(
     name="SynthCtrl",
-    version="0.1.0",
+    version="0.1.1",
     description="A library for Synthetic Control methods",
     long_description=long_description,
     long_description_content_type="text/markdown",
