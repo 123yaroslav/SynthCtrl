@@ -2,8 +2,8 @@
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[project]
-license = {text = "MIT"}
+[tool.setuptools]
+license-expression = "MIT"
 
 [tool.isort]
 profile = "black"
