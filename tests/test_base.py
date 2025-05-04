@@ -66,7 +66,6 @@ def test_validation():
     
     assert sc.data is not None
     
-    # Test missing column
     bad_data = data.drop(columns=['metric'])
     with pytest.raises(Exception):
         sc = SyntheticControl(

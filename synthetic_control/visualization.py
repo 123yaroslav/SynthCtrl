@@ -19,7 +19,7 @@ def plot_synthetic_control(
     ylabel: str = "Metric",
     show: bool = True,
     save_path: Optional[str] = None,
-    model: Any = None,  # For backwards compatibility
+    model: Any = None,  
 ) -> plt.Figure:
     """
     Plot the synthetic control results.
@@ -62,61 +62,46 @@ def plot_synthetic_control(
     plt.Figure
         The figure object.
     """
-    # Close any existing figures
+
     plt.close('all')
     
-    # Create figure
     fig, ax = plt.subplots(figsize=figsize)
     
-    # Get treated unit data
     treated_data = data[data[treated] == True]
     
-    # Get time periods
     periods = sorted(data[period_index].unique())
     
-    # Determine treatment date if not provided
     if treatment_date is None:
-        # Find the first period where after_treatment is True
         first_after = treated_data[treated_data[after_treatment] == True][period_index].min()
         if first_after is not None:
             treatment_date = first_after
         else:
-            # If no treatment date found, use the middle of the time series
             treatment_date = periods[len(periods) // 2]
     
-    # Plot treated values
     treated_values = treated_data.sort_values(period_index)[metric].values
     ax.plot(periods, treated_values, 'b-', label='Actual')
     
-    # Plot synthetic control
     ax.plot(periods, predictions, 'r--', label='Synthetic Control')
     
-    # Add treatment line
     treatment_index = periods.index(treatment_date) if treatment_date in periods else len(periods) // 2
     ax.axvline(x=periods[treatment_index], color='g', linestyle='-', label='Treatment Date')
     
-    # Set labels and title
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
     
-    # Add legend
     ax.legend()
     
-    # Add grid
     ax.grid(True, alpha=0.3)
     
-    # Rotate x-axis labels if they are dates
     if isinstance(periods[0], (pd.Timestamp, str)):
         plt.xticks(rotation=45)
     
     plt.tight_layout()
     
-    # Save if requested
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
     
-    # Show if requested
     if show:
         plt.show()
     
@@ -159,45 +144,35 @@ def plot_effect_distribution(
     plt.Figure
         The figure object.
     """
-    # Close any existing figures
+
     plt.close('all')
     
-    # Create figure
     fig, ax = plt.subplots(figsize=figsize)
     
-    # Plot density of effects
     sns.kdeplot(effects, ax=ax, color='blue', label='Placebo Effects')
     
-    # Plot observed effect
     ax.axvline(x=observed_effect, color='red', linestyle='--', label='Observed Effect')
     
-    # Calculate p-value (two-sided)
     p_value = np.mean(np.abs(effects) >= np.abs(observed_effect))
     
-    # Add p-value annotation
     ax.annotate(f'p-value: {p_value:.4f}', 
                 xy=(0.05, 0.95), 
                 xycoords='axes fraction',
                 bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="black", alpha=0.8))
     
-    # Set labels and title
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
     
-    # Add legend
     ax.legend()
     
-    # Add grid
     ax.grid(True, alpha=0.3)
     
     plt.tight_layout()
     
-    # Save if requested
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
     
-    # Show if requested
     if show:
         plt.show()
     
@@ -243,38 +218,29 @@ def plot_weights(
     plt.Figure
         The figure object.
     """
-    # Close any existing figures
     plt.close('all')
-    
-    # Convert dict to Series if needed
+
     if isinstance(weights, dict):
         weights = pd.Series(weights)
-    
-    # Sort weights
+
     weights = weights.sort_values(ascending=False)
-    
-    # Take top_n if specified
+
     if top_n is not None and top_n < len(weights):
         weights = weights.iloc[:top_n]
-    
-    # Create figure
+
     fig, ax = plt.subplots(figsize=figsize)
-    
-    # Plot horizontal or vertical bars
+
     if horizontal:
         weights.plot(kind='barh', ax=ax)
     else:
         weights.plot(kind='bar', ax=ax)
-    
-    # Set labels and title
+
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
-    
-    # Add grid
+
     ax.grid(True, alpha=0.3)
-    
-    # Add value labels
+
     for i, (_, weight) in enumerate(weights.items()):
         if horizontal:
             ax.text(weight + 0.01, i, f'{weight:.3f}', va='center')
@@ -282,12 +248,10 @@ def plot_weights(
             ax.text(i, weight + 0.01, f'{weight:.3f}', ha='center')
     
     plt.tight_layout()
-    
-    # Save if requested
+
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-    
-    # Show if requested
+
     if show:
         plt.show()
     
