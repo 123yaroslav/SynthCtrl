@@ -8,7 +8,7 @@ def plot_synthetic_control(
     data: pd.DataFrame,
     metric: str,
     period_index: str,
-    shopno: str,
+    unit_id: str,
     treated: str,
     after_treatment: str,
     predictions: np.ndarray,
@@ -20,54 +20,51 @@ def plot_synthetic_control(
     show: bool = False
 ) -> plt.Figure:
     """
-    Визуализация результатов Synthetic Control.
+    Visualization of Synthetic Control results.
     
     Parameters
     ----------
     data : pd.DataFrame
-        Исходные данные
+        Original data
     metric : str
-        Название метрики
+        Metric name
     period_index : str
-        Название колонки с периодами
-    shopno : str
-        Название колонки с идентификаторами магазинов
+        Name of the period column
+    unit_id : str
+        Name of the unit identifier column
     treated : str
-        Название колонки, указывающей на обработанные единицы
+        Name of the column indicating treated units
     after_treatment : str
-        Название колонки, указывающей на периоды после вмешательства
+        Name of the column indicating periods after intervention
     predictions : np.ndarray
-        Предсказанные значения
+        Predicted values
     treatment_date : Optional[int]
-        Дата вмешательства
+        Intervention date
     figsize : tuple, default=(12, 6)
-        Размер графика
+        Figure size
     title : str, default="Synthetic Control"
-        Заголовок графика
+        Figure title
     xlabel : str, default="Date"
-        Подпись оси X
+        X-axis label
     ylabel : str, default="Metric"
-        Подпись оси Y
+        Y-axis label
     show : bool, default=False
-        Отображать ли график автоматически
+        Whether to show the figure automatically
         
     Returns
     -------
     plt.Figure
-        Объект графика
+        Figure object
     """
-    # Только обработанная единица (например, Калифорния)
     treated_data = data[data[treated]].sort_values(period_index)
     periods = treated_data[period_index].values
     actual = treated_data[metric].values
 
-    # predictions должен быть той же длины, что и actual
     if len(predictions) != len(actual):
-        # Если predictions длиннее, берем только последние значения
         if len(predictions) > len(actual):
             predictions = predictions[-len(actual):]
         else:
-            raise ValueError("Длина predictions меньше длины фактических данных для обработанной единицы.")
+            raise ValueError("Length of predictions is less than length of actual data for treated unit.")
 
     fig, ax = plt.subplots(figsize=figsize)
     ax.plot(periods, actual, label='Treated', color='blue')
@@ -97,39 +94,36 @@ def plot_effect_distribution(
     show: bool = False
 ) -> plt.Figure:
     """
-    Визуализация распределения эффектов.
+    Visualization of effect distribution.
     
     Parameters
     ----------
     effects : np.ndarray
-        Массив эффектов
+        Array of effects
     observed_effect : float
-        Наблюдаемый эффект
+        Observed effect
     figsize : tuple, default=(10, 6)
-        Размер графика
+        Figure size
     title : str, default="Effect Distribution"
-        Заголовок графика
+        Figure title
     xlabel : str, default="Effect"
-        Подпись оси X
+        X-axis label
     ylabel : str, default="Density"
-        Подпись оси Y
+        Y-axis label
     show : bool, default=False
-        Отображать ли график автоматически
+        Whether to show the figure automatically
         
     Returns
     -------
     plt.Figure
-        Объект графика
+        Figure object
     """
     fig, ax = plt.subplots(figsize=figsize)
     
-    # Построение гистограммы
     sns.histplot(effects, kde=True, ax=ax)
     
-    # Добавление вертикальной линии для наблюдаемого эффекта
     ax.axvline(x=observed_effect, color='red', linestyle='--', label='Observed Effect')
     
-    # Настройка графика
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
@@ -150,44 +144,40 @@ def plot_weights(
     show: bool = False
 ) -> plt.Figure:
     """
-    Визуализация весов контрольных единиц.
+    Visualization of control unit weights.
     
     Parameters
     ----------
     weights : Dict[str, float]
-        Словарь с весами контрольных единиц
+        Dictionary with control unit weights
     figsize : tuple, default=(10, 6)
-        Размер графика
+        Figure size
     title : str, default="Control Unit Weights"
-        Заголовок графика
+        Figure title
     xlabel : str, default="Control Unit"
-        Подпись оси X
+        X-axis label
     ylabel : str, default="Weight"
-        Подпись оси Y
+        Y-axis label
     show : bool, default=False
-        Отображать ли график автоматически
+        Whether to show the figure automatically
         
     Returns
     -------
     plt.Figure
-        Объект графика
+        Figure object
     """
     fig, ax = plt.subplots(figsize=figsize)
     
-    # Подготовка данных
     units = list(weights.keys())
     values = list(weights.values())
     
-    # Построение столбчатой диаграммы
     ax.bar(units, values)
     
-    # Настройка графика
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.grid(True)
     
-    # Поворот подписей на оси X
     plt.xticks(rotation=45)
     
     if show:
@@ -203,314 +193,368 @@ def plot_cumulative_effect(
     predictions: np.ndarray,
     treatment_date: Optional[int] = None,
     figsize: tuple = (12, 6),
-    title: str = "Кумулятивный эффект Synthetic Control",
+    title: str = "Cumulative Effect of Synthetic Control",
     xlabel: str = "Date",
-    ylabel: str = "Кумулятивная разница",
+    ylabel: str = "Cumulative Difference",
     show: bool = False
 ) -> plt.Figure:
     """
-    Визуализация кумулятивного эффекта между Treated и Synthetic Control.
+    Visualization of cumulative effect between Treated and Synthetic Control.
     
     Parameters
     ----------
     data : pd.DataFrame
-        Исходные данные
+        Original data
     metric : str
-        Название метрики
+        Metric name
     period_index : str
-        Название колонки с периодами
+        Name of the period column
     treated : str
-        Название колонки, указывающей на обработанные единицы
+        Name of the column indicating treated units
     predictions : np.ndarray
-        Предсказанные значения (Synthetic Control)
+        Predicted values (Synthetic Control)
     treatment_date : Optional[int]
-        Дата вмешательства
+        Treatment date
     figsize : tuple, default=(12, 6)
-        Размер графика
-    title : str, default="Кумулятивный эффект Synthetic Control"
-        Заголовок графика
+        Figure size
+    title : str, default="Cumulative Effect of Synthetic Control"
+        Figure title
     xlabel : str, default="Date"
-        Подпись оси X
-    ylabel : str, default="Кумулятивная разница"
-        Подпись оси Y
+        X-axis label
+    ylabel : str, default="Cumulative Difference"
+        Y-axis label
     show : bool, default=False
-        Отображать ли график автоматически
+        Whether to show the figure automatically
     
     Returns
     -------
     plt.Figure
-        Объект графика
+        Figure object
     """
-    # Только обработанная единица (например, Калифорния)
     treated_data = data[data[treated]].sort_values(period_index)
     periods = treated_data[period_index].values
     actual = treated_data[metric].values
 
-    # predictions должен быть той же длины, что и actual
-    if len(predictions) != len(actual):
-        if len(predictions) > len(actual):
-            predictions = predictions[-len(actual):]
-        else:
-            raise ValueError("Длина predictions меньше длины фактических данных для обработанной единицы.")
-
-    # Кумулятивная сумма разницы Treated - Synthetic
-    cumulative_effect = np.cumsum(actual - predictions)
-
-    fig, ax = plt.subplots(figsize=figsize)
-    ax.plot(periods, cumulative_effect, label='Кумулятивный эффект', color='purple')
-
-    if treatment_date is not None:
-        ax.axvline(x=treatment_date, color='black', linestyle=':', label='Treatment')
-
-    ax.set_title(title)
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
-    ax.legend()
-    ax.grid(True)
-    
-    if show:
-        plt.show()
+    try:
+        if len(predictions) != len(actual):
+            if len(predictions) > len(actual):
+                all_periods = sorted(data[period_index].unique())
+                if len(all_periods) == len(predictions):
+                    pred_df = pd.DataFrame({
+                        'period': all_periods,
+                        'predicted': predictions
+                    }).set_index('period')
+                    
+                    predictions = np.array([pred_df.loc[p, 'predicted'] 
+                                         if p in pred_df.index else np.nan 
+                                         for p in periods])
+                else:
+                    predictions = predictions[-len(actual):]
+            else:
+                control_periods = data[~data[treated]].sort_values(period_index)[period_index].unique()
+                if len(control_periods) == len(predictions):
+                    pred_df = pd.DataFrame({
+                        'period': control_periods,
+                        'predicted': predictions
+                    }).set_index('period')
+                    
+                    full_predictions = np.full(len(actual), np.nan)
+                    for i, period in enumerate(periods):
+                        if period in pred_df.index:
+                            full_predictions[i] = pred_df.loc[period, 'predicted']
+                    
+                    if not np.any(~np.isnan(full_predictions)):
+                        raise ValueError("No predictions for treated group periods.")
+                    
+                    predictions = full_predictions
+                else:
+                    raise ValueError("Length of predictions is less than length of actual data for treated unit.")
         
-    return fig 
+        if np.any(np.isnan(predictions)):
+            valid_indices = ~np.isnan(predictions)
+            if not np.any(valid_indices):
+                raise ValueError("All predictions contain NaN")
+            
+            filtered_periods = periods[valid_indices]
+            filtered_actual = actual[valid_indices]
+            filtered_predictions = predictions[valid_indices]
+            
+            cumulative_effect = np.cumsum(filtered_actual - filtered_predictions)
+            
+            fig, ax = plt.subplots(figsize=figsize)
+            ax.plot(filtered_periods, cumulative_effect, label='Cumulative Effect', color='purple')
+        else:
+            cumulative_effect = np.cumsum(actual - predictions)
+            
+            fig, ax = plt.subplots(figsize=figsize)
+            ax.plot(periods, cumulative_effect, label='Cumulative Effect', color='purple')
+        
+        if treatment_date is not None:
+            ax.axvline(x=treatment_date, color='black', linestyle=':', label='Treatment')
+    
+        ax.set_title(title)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.legend()
+        ax.grid(True)
+        
+        if show:
+            plt.show()
+            
+        return fig
+    
+    except Exception as e:
+        print(f"Error building cumulative effect plot: {str(e)}")
+        fig, ax = plt.subplots(figsize=figsize)
+        ax.text(0.5, 0.5, f"Error building plot: {str(e)}", 
+                ha='center', va='center', transform=ax.transAxes)
+        if show:
+            plt.show()
+        return fig
 
-def plot_synthetic_did(model, figsize=(12, 8), title=None, xlabel=None, ylabel=None, grid=True, 
-                      confidence_interval=True, alpha=0.05, save_path=None, show=False):
+def plot_model_results(model, T0=None, figsize=(14, 7), save_path=None, show=False):
     """
-    Визуализация результатов метода Synthetic Difference-in-Differences.
+    Universal function for visualizing results of Synthetic Control and Synthetic DID models.
     
     Parameters
     ----------
-    model : SyntheticDIDModel
-        Обученная модель Synthetic DID
-    figsize : tuple, default=(12, 8)
-        Размер графика
-    title : str, optional
-        Заголовок графика
-    xlabel : str, optional
-        Подпись оси X
-    ylabel : str, optional
-        Подпись оси Y
-    grid : bool, default=True
-        Отображать сетку на графике
-    confidence_interval : bool, default=True
-        Отображать доверительный интервал
-    alpha : float, default=0.05
-        Уровень значимости для доверительного интервала
+    model : SyntheticControl or its subclasses (ClassicSyntheticControl, SyntheticDIDModel)
+        Trained model
+    T0 : int or float, optional
+        Period of intervention start. If None, it's taken from the model.
+    figsize : tuple, default=(14, 7)
+        Figure size
     save_path : str, optional
-        Путь для сохранения графика
+        Path to save the figure
     show : bool, default=False
-        Отображать ли график автоматически. В Jupyter Notebook рекомендуется устанавливать False,
-        так как график будет отображен автоматически при возврате объекта фигуры.
+        Whether to show the figure automatically
         
     Returns
     -------
     matplotlib.figure.Figure
-        Объект фигуры matplotlib
+        Matplotlib figure object
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from .estimators import ClassicSyntheticControl, SyntheticDIDModel
+    
+    plt.close('all')
+    
+    if not hasattr(model, 'data'):
+        raise ValueError("Model must be trained before visualization. Call fit() method.")
+    
+    if isinstance(model, SyntheticDIDModel):
+        return _plot_synthetic_diff_in_diff_model(model, T0, figsize, save_path, show)
+    else:
+        return _plot_classic_synthetic_control(model, T0, figsize, save_path, show)
+
+def _plot_classic_synthetic_control(model, T0=None, figsize=(14, 7), save_path=None, show=False):
+    """
+    Visualization for Classic Synthetic Control model.
+    
+    Parameters
+    ----------
+    model : SyntheticControl or ClassicSyntheticControl
+        Trained model
+    T0 : int or float, optional
+        Treatment period start. If None, it's taken from the model.
+    figsize : tuple, default=(14, 7)
+        Figure size
+    save_path : str, optional
+        Path to save the figure
+    show : bool, default=False
+        Whether to show the figure automatically
+        
+    Returns
+    -------
+    matplotlib.figure.Figure
+        Matplotlib figure object
     """
     import matplotlib.pyplot as plt
     import numpy as np
     
-    if not hasattr(model, 'model_'):
-        raise ValueError("Модель должна быть обучена перед визуализацией. Вызовите метод fit().")
-    
-    # Получаем данные из модели
     data = model.data.copy()
-    period_col = model.period_index_col
-    outcome_col = model.outcome_col
-    treat_col = model.treat_col
-    post_col = model.post_col
+    outcome_col = model.metric
+    period_index_col = model.period_index
+    unit_id_col = model.unit_id
+    treat_col = model.treated
+    post_col = model.after_treatment
     
-    # Вычисляем средние значения для обработанных единиц
-    treated_means = (data
-                     .query(f"{treat_col}")
-                     .groupby([period_col, post_col])[outcome_col]
-                     .mean()
-                     .reset_index()
-                     .sort_values(period_col))
+    if T0 is None:
+        if hasattr(model, 'treatment_date') and model.treatment_date is not None:
+            T0 = model.treatment_date
+        else:
+            T0 = data[data[post_col]].sort_values(period_index_col)[period_index_col].min()
+            print(f"Warning: Treatment date not specified, using first post-treatment period: {T0}")
     
-    # Вычисляем синтетический контроль
-    treated_post = data.query(f"{treat_col} and {post_col}")
-    
-    # Применяем веса к контрольной группе для построения синтетического контроля
-    unit_weights = model.unit_weights_
-    time_weights = model.time_weights_
-    
-    # Получаем контрфактические значения из модели
-    joined_data = model.join_weights(data, unit_weights, time_weights)
-    counterfactual = joined_data.query(f"{treat_col} and {post_col}").copy()
-    counterfactual[treat_col] = 0
-    counterfactual['predicted'] = model.model_.predict(counterfactual)
-    
-    # Группируем контрфактические значения по периодам
-    counterfactual_means = (counterfactual
-                            .groupby(period_col)['predicted']
-                            .mean()
-                            .reset_index())
-    
-    # Создаем график
+    plt.style.use("ggplot")
     fig, ax = plt.subplots(figsize=figsize)
     
-    # Определяем период начала воздействия
-    treatment_start = data.query(f"{post_col}")[period_col].min()
+    treated_data = data[data[treat_col]].sort_values(period_index_col)
+    treated_values = treated_data.groupby(period_index_col)[outcome_col].mean()
     
-    # Строим линии для фактических и контрфактических значений
-    ax.plot(treated_means[period_col], treated_means[outcome_col], 'b-', linewidth=2, label='Фактические значения')
-    ax.plot(counterfactual_means[period_col], counterfactual_means['predicted'], 'g--', linewidth=2, label='Синтетический контроль')
+    ax.plot(treated_values.index, treated_values.values, 
+            label="Treatment Group", color="red", linewidth=2)
     
-    # Добавляем вертикальную линию, обозначающую начало воздействия
-    ax.axvline(x=treatment_start, color='r', linestyle='--', label='Начало воздействия')
-    
-    # Вычисляем и отображаем эффект воздействия
-    att, se, ci_lower, ci_upper = model.estimate_se(alpha=alpha)
-    
-    # Заштрихованная область для доверительного интервала
-    if confidence_interval and hasattr(model, 'att_'):
-        post_periods = sorted(data.query(f"{post_col}")[period_col].unique())
-        for period in post_periods:
-            # Добавляем точку эффекта
-            effect_point = treated_means.query(f"{period_col} == {period}")[outcome_col].values[0]
-            counterfactual_point = counterfactual_means.query(f"{period_col} == {period}")['predicted'].values[0]
-            effect = effect_point - counterfactual_point
-            
-            # Рисуем вертикальную линию для эффекта
-            ax.plot([period, period], [counterfactual_point, effect_point], 'r-', alpha=0.7)
+    try:
+        predictions = model.predict()
         
-        # Добавляем текст с информацией об эффекте
-        ax.text(0.05, 0.95, 
-                f"ATT: {att:.4f}\nSE: {se:.4f}\n95% CI: [{ci_lower:.4f}, {ci_upper:.4f}]",
-                transform=ax.transAxes, fontsize=12, verticalalignment='top',
-                bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+        if len(predictions) < len(treated_values):
+            control_periods = data[~data[treat_col]].sort_values(period_index_col)[period_index_col].unique()
+            control_periods = [p for p in control_periods if p in treated_values.index]
+            
+            if len(control_periods) == len(predictions):
+                pred_df = pd.DataFrame({
+                    'period': control_periods,
+                    'predicted': predictions
+                }).set_index('period')
+                
+                full_predictions = np.full(len(treated_values), np.nan)
+                for i, period in enumerate(treated_values.index):
+                    if period in pred_df.index:
+                        full_predictions[i] = pred_df.loc[period, 'predicted']
+                
+                predictions = full_predictions
+                if np.isnan(predictions).any():
+                    print("Warning: Some periods have no predictions.")
+        
+        elif len(predictions) > len(treated_values):
+            all_periods = sorted(data[period_index_col].unique())
+            
+            if len(all_periods) == len(predictions):
+                pred_df = pd.DataFrame({
+                    'period': all_periods,
+                    'predicted': predictions
+                }).set_index('period')
+                
+                predictions = np.array([pred_df.loc[p, 'predicted'] if p in pred_df.index else np.nan 
+                                       for p in treated_values.index])
+            else:
+                predictions = predictions[-len(treated_values):]
+        
+        ax.plot(treated_values.index, predictions, 
+                label="Synthetic Control", color="blue", linestyle="--", linewidth=2)
+        
+        ax.axvline(x=T0, color='black', linestyle=':', label='Treatment Start')
+        
+        post_periods = [p for p in treated_values.index if p >= T0]
+        if post_periods:
+            post_treated = treated_values.loc[post_periods]
+            post_pred_indices = [i for i, p in enumerate(treated_values.index) if p in post_periods]
+            post_predicted = predictions[post_pred_indices]
+            
+            valid_indices = ~np.isnan(post_predicted)
+            if np.any(valid_indices):
+                att = np.mean(np.array(post_treated)[valid_indices] - post_predicted[valid_indices])
+                
+                ax.text(0.05, 0.95, 
+                       f"ATT: {att:.4f}",
+                       transform=ax.transAxes, fontsize=12, verticalalignment='top',
+                       bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+                
+                for i, period in enumerate(post_periods):
+                    if i < len(post_predicted) and not np.isnan(post_predicted[i]):
+                        actual = post_treated.iloc[i]
+                        pred = post_predicted[i]
+                        ax.plot([period, period], [pred, actual], 'r-', alpha=0.7)
     
-    # Настройка графика
-    if title:
-        ax.set_title(title, fontsize=14)
-    else:
-        ax.set_title('Результаты Synthetic Difference-in-Differences', fontsize=14)
+    except Exception as e:
+        print(f"Error building predictions plot: {str(e)}")
     
-    if xlabel:
-        ax.set_xlabel(xlabel, fontsize=12)
-    else:
-        ax.set_xlabel('Период', fontsize=12)
-    
-    if ylabel:
-        ax.set_ylabel(ylabel, fontsize=12)
-    else:
-        ax.set_ylabel(outcome_col, fontsize=12)
-    
+    ax.set_title("Synthetic Control Results", fontsize=14)
+    ax.set_xlabel(period_index_col, fontsize=12)
+    ax.set_ylabel(outcome_col, fontsize=12)
     ax.legend(fontsize=12)
-    
-    if grid:
-        ax.grid(True, linestyle='--', alpha=0.7)
+    ax.grid(True, linestyle='--', alpha=0.7)
     
     plt.tight_layout()
     
-    # Сохраняем график, если указан путь
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
     
-    # Показываем график, если указано
     if show:
         plt.show()
-    
-    return fig 
+        
+    return fig
 
-def plot_synthetic_diff_in_diff(model, T0, figsize=(14, 7), save_path=None, show=False):
+def _plot_synthetic_diff_in_diff_model(model, T0=None, figsize=(14, 7), save_path=None, show=False):
     """
-    Визуализация результатов метода Synthetic Difference-in-Differences с подробным графиком.
+    Visualization for Synthetic DID model.
     
     Parameters
     ----------
     model : SyntheticDIDModel
-        Обученная модель Synthetic DID
-    T0 : int или float
-        Период начала воздействия
+        Trained Synthetic DID model
+    T0 : int or float, optional
+        Treatment period start. If None, it's taken from the model.
     figsize : tuple, default=(14, 7)
-        Размер графика
+        Figure size
     save_path : str, optional
-        Путь для сохранения графика
+        Path to save the figure
     show : bool, default=False
-        Отображать ли график автоматически. В Jupyter Notebook рекомендуется устанавливать False,
-        так как график будет отображен автоматически при возврате объекта фигуры.
+        Whether to show the figure automatically
         
     Returns
     -------
     matplotlib.figure.Figure
-        Объект фигуры matplotlib
+        Matplotlib figure object
     """
     import matplotlib.pyplot as plt
     import numpy as np
     
     if not hasattr(model, 'model_'):
-        raise ValueError("Модель должна быть обучена перед визуализацией. Вызовите метод fit().")
+        raise ValueError("Model must be trained before visualization. Call fit() method")
+    
+    if T0 is None:
+        if hasattr(model, 'treatment_date') and model.treatment_date is not None:
+            T0 = model.treatment_date
+        else:
+            T0 = model.data[model.data[model.post_col]].sort_values(model.period_index_col)[model.period_index_col].min()
+            print(f"Warning: Treatment date not specified, using first post-treatment period: {T0}")
     
     try:
-        # Получаем необходимые данные из модели
-        att = model.att_
-        unit_weights = model.unit_weights_
-        time_weights = model.time_weights_
-        sdid_model_fit = model.model_
-        intercept = model.intercept_
+        att, unit_weights, time_weights, sdid_model_fit, intercept = model.synthetic_diff_in_diff()
         
-        # Получаем основные атрибуты из модели
-        data = model.data
-        outcome_col = model.outcome_col
-        period_index_col = model.period_index_col
-        shopno_col = model.shopno_col
-        treat_col = model.treat_col
-        post_col = model.post_col
-        
-        # Получаем значения для контрольной группы
-        y_co_all = data.loc[data[treat_col] == 0] \
-                    .pivot_table(index=period_index_col, columns=shopno_col,
-                                values=outcome_col, aggfunc='mean') \
-                    .sort_index()
+        y_co_all = model.data.loc[model.data[model.treat_col] == 0] \
+                      .pivot(index=model.period_index_col, columns=model.shopno_col, values=model.outcome_col) \
+                      .sort_index()
         sc_did = intercept + y_co_all.dot(unit_weights)
         
-        # Значения для группы воздействия
-        treated_all = data.loc[data[treat_col] == 1] \
-                        .groupby(period_index_col)[outcome_col].mean()
+        treated_all = model.data.loc[model.data[model.treat_col] == 1] \
+                          .groupby(model.period_index_col)[model.outcome_col].mean()
         
-        # Определяем средние периоды до и после воздействия
-        pre_times = data.loc[data[period_index_col] < T0, period_index_col]
-        post_times = data.loc[data[period_index_col] >= T0, period_index_col]
+        pre_times = model.data.loc[model.data[model.period_index_col] < T0, model.period_index_col]
+        post_times = model.data.loc[model.data[model.period_index_col] >= T0, model.period_index_col]
         avg_pre_period = pre_times.mean() if len(pre_times) > 0 else T0
         avg_post_period = post_times.mean() if len(post_times) > 0 else T0 + 1
         
-        # Получаем параметры модели для построения линий тренда
         params = sdid_model_fit.params
         pre_sc = params.get("Intercept", 0)
-        post_sc = pre_sc + params.get(post_col, 0)
-        pre_treat = pre_sc + params.get(treat_col, 0)
-        post_treat = post_sc + params.get(treat_col, 0) + params.get(f"{post_col}:{treat_col}", 0)
+        post_sc = pre_sc + params.get(model.post_col, 0)
+        pre_treat = pre_sc + params.get(model.treat_col, 0)
         
-        # Контрфактическое значение (без эффекта)
+        post_treat_key = f"{model.post_col}:{model.treat_col}"
+        if post_treat_key in params:
+            post_treat = post_sc + params[model.treat_col] + params[post_treat_key]
+        else:
+            post_treat = pre_treat
+        
         sc_did_y0 = pre_treat + (post_sc - pre_sc)
         
-        # Создаем график
         plt.style.use("ggplot")
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=figsize, sharex=True,
-                                    gridspec_kw={'height_ratios': [3, 1]})
+                                       gridspec_kw={'height_ratios': [3, 1]})
         
-        # Рисуем все контрольные единицы
-        controls_all = data.loc[data[treat_col] == 0]
-        for unit in controls_all[shopno_col].unique():
-            subset = controls_all.loc[controls_all[shopno_col] == unit].sort_values(period_index_col)
-            ax1.plot(subset[period_index_col], subset[outcome_col],
-                    color="gray", alpha=0.5, linewidth=1)
-
-        # Рисуем синтетический контроль и группу воздействия
         ax1.plot(sc_did.index, sc_did.values, label="Synthetic DID", color="black", alpha=0.8)
-        ax1.plot(treated_all.index, treated_all.values, label="Тестовая группа", color="red", linewidth=2)
+        ax1.plot(treated_all.index, treated_all.values, label="Treatment Group", color="red", linewidth=2)
         
-        # Рисуем линии тренда
         ax1.plot([avg_pre_period, avg_post_period], [pre_sc, post_sc],
-                color="C5", label="Синтетический тренд", linewidth=2)
+                 color="#1f77b4", label="Counterfactual Trend", linewidth=2)
         ax1.plot([avg_pre_period, avg_post_period], [pre_treat, post_treat],
-                color="C2", label="Воздействие", linewidth=2)
+                 color="#ff7f0e", linestyle="dashed", label="Effect", linewidth=2)
         ax1.plot([avg_pre_period, avg_post_period], [pre_treat, sc_did_y0],
-                color="C2", linestyle="dashed", linewidth=2)
+                 color="#ff7f0e", label="Synthetic Trend", linewidth=2)
         
-        # Добавляем аннотацию для ATT
         x_bracket = avg_post_period
         y_top = post_treat
         y_bottom = sc_did_y0
@@ -518,37 +562,62 @@ def plot_synthetic_diff_in_diff(model, T0, figsize=(14, 7), save_path=None, show
             '', 
             xy=(x_bracket, y_bottom), 
             xytext=(x_bracket, y_top),
-            arrowprops=dict(arrowstyle='|-|', color='purple', lw=2)
+            arrowprops=dict(arrowstyle='|-|', color='#9467bd', lw=2)
         )
-        ax1.text(x_bracket + 0.5, (y_top + y_bottom) / 2, f"ATT = {round(att, 2)}",
-                color='purple', fontsize=12, va='center')
         
-        # Добавляем легенду и оформление
+        ax1.text(x_bracket + 0.5, (y_top + y_bottom) / 2, f"ATT = {round(att, 4)}",
+                 color='black', fontsize=12, va='center',
+                 bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+        
         ax1.legend()
-        ax1.set_title("Синтетический diff-in-diff")
-        ax1.axvline(T0, color='black', linestyle=':', label='Начало воздействия')
-        ax1.set_ylabel(f"Значение {outcome_col}")
+        ax1.set_title("Synthetic Difference-in-Differences")
+        ax1.axvline(T0, color='black', linestyle=':', label='Treatment Start')
+        ax1.set_ylabel(model.outcome_col)
 
-        # Добавляем график весов времени
         ax2.bar(time_weights.index, time_weights.values, color='blue', alpha=0.7)
         ax2.axvline(T0, color="black", linestyle="dotted")
-        ax2.set_ylabel("Веса для времени")
-        ax2.set_xlabel("Время")
+        ax2.set_ylabel("Time Weights")
+        ax2.set_xlabel(model.period_index_col)
         
         plt.tight_layout()
         
-        # Сохраняем график, если указан путь
         if save_path:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
         
-        # Показываем график, если указано
         if show:
             plt.show()
             
         return fig
-        
+    
     except Exception as e:
-        import traceback
-        print(f"Ошибка при построении графика: {str(e)}")
-        print(traceback.format_exc())
-        return None 
+        print(f"Error building Synthetic DID plot: {str(e)}")
+        fig, ax = plt.subplots(figsize=figsize)
+        ax.text(0.5, 0.5, f"Error building plot: {str(e)}", 
+               ha='center', va='center', transform=ax.transAxes)
+        if show:
+            plt.show()
+        return fig
+
+def plot_synthetic_diff_in_diff(model, T0=None, figsize=(14, 7), save_path=None, show=False):
+    """
+    Visualization of Synthetic Difference-in-Differences method results.
+    
+    Parameters
+    ----------
+    model : SyntheticDIDModel or ClassicSyntheticControl
+        Trained model
+    T0 : int or float, optional
+        Period of intervention start. If None, it's taken from the model.
+    figsize : tuple, default=(14, 7)
+        Figure size
+    save_path : str, optional
+        Path to save the figure
+    show : bool, default=False
+        Whether to show the figure automatically
+        
+    Returns
+    -------
+    matplotlib.figure.Figure
+        Matplotlib figure object
+    """
+    return plot_model_results(model, T0, figsize, save_path, show) 

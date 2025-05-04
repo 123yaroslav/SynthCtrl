@@ -21,8 +21,8 @@ class ClassicSyntheticControl(SyntheticControl):
         Название метрики для анализа
     period_index : str
         Название колонки с временными периодами
-    shopno : str
-        Название колонки с идентификаторами магазинов
+    unit_id : str
+        Название колонки с идентификаторами единиц
     treated : str
         Название колонки, указывающей на обработанные единицы
     after_treatment : str
@@ -60,7 +60,7 @@ class ClassicSyntheticControl(SyntheticControl):
         # Преобразование в матричный формат
         df_pre_control = control_data.pivot(
             index=self.period_index,
-            columns=self.shopno,
+            columns=self.unit_id,
             values=self.metric
         )
         
@@ -85,13 +85,16 @@ class ClassicSyntheticControl(SyntheticControl):
         bounds = [(0.0, 1.0)] * n_features
         
         # Оптимизация весов
-        self.weights_ = fmin_slsqp(
+        weights_array = fmin_slsqp(
             partial(self.loss, X=self.X_, y=self.y_),
             init_w,
             f_eqcons=cons,
             bounds=bounds,
             disp=False
         )
+        
+        # Сохраняем веса как pandas Series с названиями штатов
+        self.weights_ = pd.Series(weights_array, index=self.control_units_, name="weights")
         
     def predict(self) -> np.ndarray:
         """
@@ -100,7 +103,7 @@ class ClassicSyntheticControl(SyntheticControl):
         Returns
         -------
         np.ndarray
-            Предсказанные значения
+            Предсказанные значения для всех периодов обработанной единицы
         """
         if self.weights_ is None:
             raise ValueError("Модель не обучена. Вызовите метод fit() перед predict()")
@@ -108,10 +111,14 @@ class ClassicSyntheticControl(SyntheticControl):
         # Получение данных для контрольных единиц
         control_data = self.data[~self.data[self.treated]]
         
+        # Получение данных для обработанной единицы (для сопоставления с периодами)
+        treated_data = self.data[self.data[self.treated]].sort_values(self.period_index)
+        treated_periods = sorted(treated_data[self.period_index].unique())
+        
         # Преобразование в матричный формат
         x_all_control = control_data.pivot(
             index=self.period_index,
-            columns=self.shopno,
+            columns=self.unit_id,
             values=self.metric
         )
         
@@ -123,8 +130,24 @@ class ClassicSyntheticControl(SyntheticControl):
         # Упорядочивание колонок в соответствии с control_units_
         x_all_control = x_all_control[self.control_units_]
         
-        # Предсказание
-        return x_all_control.values @ self.weights_
+        # Предсказание для всех периодов контрольной группы
+        # Теперь weights_ это Series, поэтому для матричного произведения нужны значения
+        predictions_control = x_all_control.values @ self.weights_.values
+        
+        # Создаем предсказания для всех периодов обработанной группы
+        all_predictions = np.full(len(treated_periods), np.nan)
+        
+        # Заполняем предсказания для тех периодов, которые есть в контрольной группе
+        for i, period in enumerate(treated_periods):
+            if period in x_all_control.index:
+                period_index = x_all_control.index.get_loc(period)
+                all_predictions[i] = predictions_control[period_index]
+        
+        # Проверяем, что у нас есть хотя бы одно валидное предсказание
+        if np.all(np.isnan(all_predictions)):
+            raise ValueError("Не удалось получить предсказания для периодов обработанной группы")
+        
+        return all_predictions
         
     def estimate_effect(self) -> Dict[str, float]:
         """
@@ -141,33 +164,38 @@ class ClassicSyntheticControl(SyntheticControl):
         # Получение предсказаний для всего периода
         y_pred = self.predict()
         
+        # Получение данных для обработанной единицы
+        treated_data = self.data[self.data[self.treated]].sort_values(self.period_index)
+        treated_periods = treated_data[self.period_index].unique()
+        
         # Получение данных для обработанной единицы в пост-интервенционном периоде
-        y_post_treat = (self.data
-            .query(f"{self.treated} and {self.after_treatment}")
-            .sort_values(self.period_index)
-            [self.metric]
-            .values
-        )
+        y_post_treat = treated_data[treated_data[self.after_treatment]][self.metric].values
+        post_periods = treated_data[treated_data[self.after_treatment]][self.period_index].values
         
         if len(y_post_treat) == 0:
             raise ValueError("Нет данных для обработанной единицы в пост-интервенционном периоде")
         
-        # Получение предсказаний для пост-интервенционного периода
-        sc_post = y_pred[-len(y_post_treat):]
+        # Получаем индексы пост-интервенционных периодов
+        post_indices = [i for i, p in enumerate(treated_periods) if p in post_periods]
         
-        # Проверка размерностей
-        if len(y_post_treat) != len(sc_post):
-            raise ValueError(
-                f"Несоответствие размерностей: len(y_post_treat)={len(y_post_treat)}, "
-                f"len(sc_post)={len(sc_post)}"
-            )
+        # Проверяем, что у нас есть предсказания для всех пост-интервенционных периодов
+        sc_post = y_pred[post_indices]
+        
+        # Проверка наличия NaN в предсказаниях
+        valid_indices = ~np.isnan(sc_post)
+        if not np.any(valid_indices):
+            raise ValueError("Нет валидных предсказаний для пост-интервенционного периода")
+        
+        # Расчет эффекта только для валидных предсказаний
+        valid_y_post = y_post_treat[valid_indices]
+        valid_sc_post = sc_post[valid_indices]
         
         # Расчет эффекта
-        att = np.mean(y_post_treat - sc_post)
+        att = np.mean(valid_y_post - valid_sc_post)
         
         return {
             'att': att,
-            'weights': dict(zip(self.control_units_, self.weights_))
+            'weights': self.weights_  # Теперь weights_ уже является Series с именами штатов
         }
         
     def bootstrap_effect(self, alpha: float = 0.05, ci_method: str = 'normal') -> Dict[str, float]:
@@ -195,16 +223,16 @@ class ClassicSyntheticControl(SyntheticControl):
 
         for _ in range(self.bootstrap_rounds):
             control = self.data[~self.data[self.treated]]
-            shopnos = control[self.shopno].unique()
+            shopnos = control[self.unit_id].unique()
             placebo_shopno = np.random.choice(shopnos)
             placebo_data = control.assign(
-                **{self.treated: control[self.shopno] == placebo_shopno}
+                **{self.treated: control[self.unit_id] == placebo_shopno}
             )
             placebo_model = ClassicSyntheticControl(
                 data=placebo_data,
                 metric=self.metric,
                 period_index=self.period_index,
-                shopno=self.shopno,
+                unit_id=self.unit_id,
                 treated=self.treated,
                 after_treatment=self.after_treatment
             )
@@ -234,6 +262,230 @@ class ClassicSyntheticControl(SyntheticControl):
             'ci_lower': ci_lower,
             'ci_upper': ci_upper
         }
+        
+    def plot_model_results(self, T0=None, figsize=(14, 7), save_path=None, show=False):
+        """
+        Визуализация результатов модели Synthetic Control.
+        
+        Parameters
+        ----------
+        T0 : int или float, optional
+            Период начала воздействия. Если None, берется из модели.
+        figsize : tuple, default=(14, 7)
+            Размер графика
+        save_path : str, optional
+            Путь для сохранения графика
+        show : bool, default=False
+            Отображать ли график автоматически
+            
+        Returns
+        -------
+        matplotlib.figure.Figure
+            Объект фигуры matplotlib
+        """
+        import matplotlib.pyplot as plt
+        import numpy as np
+        import pandas as pd
+        
+        # Закрываем все предыдущие графики для предотвращения дублирования
+        plt.close('all')
+        
+        # Получаем данные из модели
+        data = self.data.copy()
+        outcome_col = self.metric
+        period_index_col = self.period_index
+        treat_col = self.treated
+        post_col = self.after_treatment
+        
+        # Используем дату воздействия из модели, если T0 не указан
+        if T0 is None:
+            if hasattr(self, 'treatment_date') and self.treatment_date is not None:
+                T0 = self.treatment_date
+            else:
+                # Если нет информации о дате воздействия, пытаемся определить ее из данных
+                T0 = data[data[post_col]].sort_values(period_index_col)[period_index_col].min()
+                print(f"Warning: Treatment date not specified, using first post-treatment period: {T0}")
+        
+        # Создаем график
+        plt.style.use("ggplot")
+        fig, ax = plt.subplots(figsize=figsize)
+        
+        # Получаем данные для группы воздействия
+        treated_data = data[data[treat_col]].sort_values(period_index_col)
+        treated_values = treated_data.groupby(period_index_col)[outcome_col].mean()
+        
+        # Отображаем группу воздействия
+        ax.plot(treated_values.index, treated_values.values, 
+                label="Treatment Group", color="red", linewidth=2)
+        
+        # Получаем предсказания из модели
+        try:
+            predictions = self.predict()
+            
+            # Корректируем длину предсказаний
+            if len(predictions) < len(treated_values):
+                # Для классической модели синтетического контроля
+                # она может предсказывать только для контрольных периодов
+                
+                # Получаем периоды контрольной группы
+                control_periods = data[~data[treat_col]].sort_values(period_index_col)[period_index_col].unique()
+                control_periods = [p for p in control_periods if p in treated_values.index]
+                
+                if len(control_periods) == len(predictions):
+                    # Создаем временный DataFrame с предсказаниями по периодам
+                    pred_df = pd.DataFrame({
+                        'period': control_periods,
+                        'predicted': predictions
+                    }).set_index('period')
+                    
+                    # Создаем новый массив предсказаний, соответствующий длине treated_values
+                    full_predictions = np.full(len(treated_values), np.nan)
+                    for i, period in enumerate(treated_values.index):
+                        if period in pred_df.index:
+                            full_predictions[i] = pred_df.loc[period, 'predicted']
+                    
+                    # Заменяем предсказания новым массивом
+                    predictions = full_predictions
+                    # Выводим предупреждение о NaN
+                    if np.isnan(predictions).any():
+                        print("Warning: Some periods have no predictions.")
+            
+            # Если предсказаний больше, чем фактических значений, обрезаем
+            elif len(predictions) > len(treated_values):
+                # Создаем временный DataFrame с предсказаниями для всех периодов
+                all_periods = sorted(data[period_index_col].unique())
+                
+                if len(all_periods) == len(predictions):
+                    # Создаем DataFrame с предсказаниями
+                    pred_df = pd.DataFrame({
+                        'period': all_periods,
+                        'predicted': predictions
+                    }).set_index('period')
+                    
+                    # Получаем предсказания только для периодов из treated_values
+                    predictions = np.array([pred_df.loc[p, 'predicted'] if p in pred_df.index else np.nan 
+                                          for p in treated_values.index])
+                else:
+                    # Если невозможно сопоставить, берем последние len(treated_values) элементов
+                    predictions = predictions[-len(treated_values):]
+            
+            # Отображаем предсказания
+            ax.plot(treated_values.index, predictions, 
+                    label="Synthetic Control", color="blue", linestyle="--", linewidth=2)
+            
+            # Добавляем вертикальную линию для времени воздействия
+            ax.axvline(x=T0, color='black', linestyle=':', label='Treatment Start')
+            
+            # Рассчитываем средний эффект для пост-периодов
+            post_periods = [p for p in treated_values.index if p >= T0]
+            if post_periods:
+                post_treated = treated_values.loc[post_periods]
+                post_pred_indices = [i for i, p in enumerate(treated_values.index) if p in post_periods]
+                post_predicted = predictions[post_pred_indices]
+                
+                # Проверяем наличие NaN в предсказаниях
+                valid_indices = ~np.isnan(post_predicted)
+                if np.any(valid_indices):
+                    # Рассчитываем эффект только для валидных индексов
+                    att = np.mean(np.array(post_treated)[valid_indices] - post_predicted[valid_indices])
+                    
+                    # Добавляем информацию об эффекте в верхнем левом углу (оригинальный стиль)
+                    ax.text(0.05, 0.95, 
+                          f"ATT: {att:.4f}",
+                          transform=ax.transAxes, fontsize=12, verticalalignment='top',
+                          bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+                    
+                    # Отображаем эффект для каждого периода с валидными данными
+                    for i, period in enumerate(post_periods):
+                        if i < len(post_predicted) and not np.isnan(post_predicted[i]):
+                            actual = post_treated.iloc[i]
+                            pred = post_predicted[i]
+                            ax.plot([period, period], [pred, actual], 'r-', alpha=0.7)
+        
+        except Exception as e:
+            print(f"Error building predictions plot: {str(e)}")
+            # Продолжаем строить график без предсказаний
+        
+        # Настраиваем график
+        ax.set_title("Synthetic Control Results", fontsize=14)
+        ax.set_xlabel(period_index_col, fontsize=12)
+        ax.set_ylabel(outcome_col, fontsize=12)
+        ax.legend(fontsize=12)
+        ax.grid(True, linestyle='--', alpha=0.7)
+        
+        plt.tight_layout()
+        
+        # Сохраняем график, если указан путь
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        
+        # Отображаем график, если указано
+        if show:
+            plt.show()
+            
+        return fig
+    
+    def plot_cumulative_effect(self, treatment_date=None, figsize=(12, 6), title=None, 
+                             xlabel=None, ylabel=None, show=False):
+        """
+        Визуализация кумулятивного эффекта между фактическими и предсказанными значениями.
+        
+        Parameters
+        ----------
+        treatment_date : int, optional
+            Дата воздействия. Если None, берется из модели.
+        figsize : tuple, default=(12, 6)
+            Размер графика
+        title : str, optional
+            Заголовок графика
+        xlabel : str, optional
+            Подпись оси X
+        ylabel : str, optional
+            Подпись оси Y
+        show : bool, default=False
+            Отображать ли график автоматически
+            
+        Returns
+        -------
+        matplotlib.figure.Figure
+            Объект фигуры matplotlib
+        """
+        from .visualization import plot_cumulative_effect
+        
+        # Проверка, что модель обучена
+        if not hasattr(self, 'weights_') or self.weights_ is None:
+            raise ValueError("Модель должна быть обучена перед визуализацией. Вызовите метод fit().")
+        
+        # Получаем предсказания
+        predictions = self.predict()
+        
+        # Используем дату воздействия из модели, если не указана
+        if treatment_date is None:
+            treatment_date = self.treatment_date
+        
+        # Формируем заголовок, если не указан
+        if title is None:
+            title = f"Cumulative Effect of Synthetic Control"
+            
+        # Подписи осей по умолчанию
+        if xlabel is None:
+            xlabel = self.period_index
+        if ylabel is None:
+            ylabel = "Cumulative Difference"
+        
+        return plot_cumulative_effect(
+            data=self.data,
+            metric=self.metric,
+            period_index=self.period_index,
+            treated=self.treated,
+            predictions=predictions,
+            treatment_date=treatment_date,
+            figsize=figsize,
+            title=title,
+            xlabel=xlabel,
+            ylabel=ylabel,
+            show=show
+        )
 
 class SyntheticDIDModel(SyntheticControl):
     """
@@ -247,8 +499,8 @@ class SyntheticDIDModel(SyntheticControl):
         Название метрики для анализа
     period_index : str
         Название колонки с временными периодами
-    shopno : str
-        Название колонки с идентификаторами магазинов
+    unit_id : str
+        Название колонки с идентификаторами единиц
     treated : str
         Название колонки, указывающей на обработанные единицы
     after_treatment : str
@@ -260,14 +512,14 @@ class SyntheticDIDModel(SyntheticControl):
     njobs : int, default=4
         Количество параллельных задач для вычисления стандартной ошибки
     """
-    def __init__(self, data, metric, period_index, shopno, treated, after_treatment,
+    def __init__(self, data, metric, period_index, unit_id, treated, after_treatment,
                  seed=42, bootstrap_rounds=100, njobs=4):
         # Вызываем конструктор родительского класса
         super().__init__(
             data=data,
             metric=metric,
             period_index=period_index,
-            shopno=shopno,
+            unit_id=unit_id,
             treated=treated,
             after_treatment=after_treatment,
             bootstrap_rounds=bootstrap_rounds,
@@ -276,7 +528,7 @@ class SyntheticDIDModel(SyntheticControl):
         # Переопределяем названия колонок для совместимости
         self.outcome_col = metric
         self.period_index_col = period_index
-        self.shopno_col = shopno
+        self.shopno_col = unit_id
         self.treat_col = treated
         self.post_col = after_treatment
         self.njobs = njobs
@@ -606,20 +858,54 @@ class SyntheticDIDModel(SyntheticControl):
         Returns
         -------
         np.ndarray
-            Массив с предсказанными значениями
+            Массив с предсказанными значениями для всех периодов обработанной единицы
         """
         if not hasattr(self, 'model_'):
             raise ValueError("Необходимо сначала обучить модель с помощью метода fit()")
-            
+        
+        # Получение данных для обработанной единицы
+        treated_data = self.data[self.data[self.treat_col]].sort_values(self.period_index_col)
+        treated_periods = sorted(treated_data[self.period_index_col].unique())
+        
+        # Создаем массив для предсказаний всех периодов
+        all_predictions = np.full(len(treated_periods), np.nan)
+        
+        # Получаем предсказания для периодов после воздействия
         treated_post = self.data.query(f"{self.treat_col} and {self.post_col}")
-        treated_post = self.join_weights(treated_post, self.unit_weights_, self.time_weights_)
+        if not treated_post.empty:
+            treated_post = self.join_weights(treated_post, self.unit_weights_, self.time_weights_)
+            
+            # Создаем копию данных, где treated = 0 для получения контрфактического результата
+            counterfactual = treated_post.copy()
+            counterfactual[self.treat_col] = 0
+            
+            # Предсказываем с моделью
+            post_predictions = self.model_.predict(counterfactual)
+            
+            # Заполняем соответствующие индексы в массиве предсказаний
+            post_periods = treated_post[self.period_index_col].values
+            for i, period in enumerate(treated_periods):
+                if period in post_periods:
+                    idx = np.where(post_periods == period)[0][0]
+                    all_predictions[i] = post_predictions[idx]
         
-        # Создаем копию данных, где treated = 0 для получения контрфактического результата
-        counterfactual = treated_post.copy()
-        counterfactual[self.treat_col] = 0
+        # Для периодов до воздействия мы можем использовать фактические значения,
+        # так как предполагается, что эффект воздействия отсутствует
+        treated_pre = self.data.query(f"{self.treat_col} and not {self.post_col}")
+        if not treated_pre.empty:
+            pre_periods = treated_pre[self.period_index_col].values
+            pre_values = treated_pre[self.outcome_col].values
+            
+            for i, period in enumerate(treated_periods):
+                if period in pre_periods:
+                    idx = np.where(pre_periods == period)[0][0]
+                    all_predictions[i] = pre_values[idx]
         
-        # Предсказываем с моделью
-        return self.model_.predict(counterfactual)
+        # Проверяем, что у нас есть хотя бы одно валидное предсказание
+        if np.all(np.isnan(all_predictions)):
+            raise ValueError("Не удалось получить предсказания для периодов обработанной группы")
+        
+        return all_predictions
         
     def estimate_effect(self):
         """
@@ -632,7 +918,10 @@ class SyntheticDIDModel(SyntheticControl):
         """
         if not hasattr(self, 'att_'):
             self.fit()
-            
+        
+        # Если att_ уже определен через Synthetic DID метод
+        # просто возвращаем его
+        
         # Создаем словарь весов
         weights_dict = self.unit_weights_.to_dict()
         
@@ -665,3 +954,208 @@ class SyntheticDIDModel(SyntheticControl):
             'ci_lower': ci_lower,
             'ci_upper': ci_upper
         }
+    
+    def plot_model_results(self, T0=None, figsize=(14, 7), save_path=None, show=False):
+        """
+        Визуализация результатов модели Synthetic DID.
+        
+        Parameters
+        ----------
+        T0 : int или float, optional
+            Период начала воздействия. Если None, берется из модели.
+        figsize : tuple, default=(14, 7)
+            Размер графика
+        save_path : str, optional
+            Путь для сохранения графика
+        show : bool, default=False
+            Отображать ли график автоматически
+            
+        Returns
+        -------
+        matplotlib.figure.Figure
+            Объект фигуры matplotlib
+        """
+        import matplotlib.pyplot as plt
+        import numpy as np
+        import pandas as pd
+        
+        # Закрываем все предыдущие графики для предотвращения дублирования
+        plt.close('all')
+        
+        # Проверяем, что модель обучена
+        if not hasattr(self, 'model_'):
+            raise ValueError("Model must be trained before visualization. Call fit() method")
+        
+        # Используем дату воздействия из модели, если T0 не указан
+        if T0 is None:
+            if hasattr(self, 'treatment_date') and self.treatment_date is not None:
+                T0 = self.treatment_date
+            else:
+                # Если нет информации о дате воздействия, пытаемся определить ее из данных
+                T0 = self.data[self.data[self.post_col]].sort_values(self.period_index_col)[self.period_index_col].min()
+                print(f"Warning: Treatment date not specified, using first post-treatment period: {T0}")
+        
+        try:
+            # Получаем необходимые данные из модели
+            att, unit_weights, time_weights, sdid_model_fit, intercept = self.synthetic_diff_in_diff()
+            
+            # Получаем данные для контрольной группы
+            y_co_all = self.data.loc[self.data[self.treat_col] == 0] \
+                          .pivot(index=self.period_index_col, columns=self.shopno_col, values=self.outcome_col) \
+                          .sort_index()
+            sc_did = intercept + y_co_all.dot(unit_weights)
+            
+            # Получаем данные для группы воздействия
+            treated_all = self.data.loc[self.data[self.treat_col] == 1] \
+                              .groupby(self.period_index_col)[self.outcome_col].mean()
+            
+            # Определяем средние периоды до и после воздействия
+            pre_times = self.data.loc[self.data[self.period_index_col] < T0, self.period_index_col]
+            post_times = self.data.loc[self.data[self.period_index_col] >= T0, self.period_index_col]
+            avg_pre_period = pre_times.mean() if len(pre_times) > 0 else T0
+            avg_post_period = post_times.mean() if len(post_times) > 0 else T0 + 1
+            
+            # Получаем параметры модели для линий тренда
+            params = sdid_model_fit.params
+            pre_sc = params.get("Intercept", 0)
+            post_sc = pre_sc + params.get(self.post_col, 0)
+            pre_treat = pre_sc + params.get(self.treat_col, 0)
+            
+            # Определяем значение после воздействия для группы воздействия
+            post_treat_key = f"{self.post_col}:{self.treat_col}"
+            if post_treat_key in params:
+                post_treat = post_sc + params[self.treat_col] + params[post_treat_key]
+            else:
+                post_treat = pre_treat
+            
+            # Контрфактическое значение (без эффекта)
+            sc_did_y0 = pre_treat + (post_sc - pre_sc)
+            
+            # Создаем график
+            plt.style.use("ggplot")
+            fig, (ax1, ax2) = plt.subplots(2, 1, figsize=figsize, sharex=True,
+                                          gridspec_kw={'height_ratios': [3, 1]})
+            
+            # Отображаем синтетический контроль и группу воздействия
+            ax1.plot(sc_did.index, sc_did.values, label="Synthetic DID", color="black", alpha=0.8)
+            ax1.plot(treated_all.index, treated_all.values, label="Treatment Group", color="red", linewidth=2)
+            
+            # Отображаем линии тренда с обновленными цветами
+            ax1.plot([avg_pre_period, avg_post_period], [pre_sc, post_sc],
+                    color="#1f77b4", label="Counterfactual Trend", linewidth=2)  # Blue
+            ax1.plot([avg_pre_period, avg_post_period], [pre_treat, post_treat],
+                    color="#ff7f0e", linestyle="dashed", label="Effect", linewidth=2)  # Orange
+            ax1.plot([avg_pre_period, avg_post_period], [pre_treat, sc_did_y0],
+                    color="#ff7f0e", label="Synthetic Trend", linewidth=2)  # Orange (same as Effect)
+            
+            # Добавляем аннотацию для ATT с другим цветом для скобок
+            x_bracket = avg_post_period
+            y_top = post_treat
+            y_bottom = sc_did_y0
+            ax1.annotate(
+                '', 
+                xy=(x_bracket, y_bottom), 
+                xytext=(x_bracket, y_top),
+                arrowprops=dict(arrowstyle='|-|', color='#9467bd', lw=2)  # Purple/violet
+            )
+            
+            # Добавляем текст с тем же стилем, что и SC (белый фон)
+            ax1.text(x_bracket + 0.5, (y_top + y_bottom) / 2, f"ATT = {round(att, 4)}",
+                    color='black', fontsize=12, va='center',
+                    bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            
+            # Добавляем легенду и форматирование
+            ax1.legend()
+            ax1.set_title("Synthetic Difference-in-Differences")
+            ax1.axvline(T0, color='black', linestyle=':', label='Treatment Start')
+            ax1.set_ylabel(self.outcome_col)
+
+            # Добавляем график временных весов
+            ax2.bar(time_weights.index, time_weights.values, color='blue', alpha=0.7)
+            ax2.axvline(T0, color="black", linestyle="dotted")
+            ax2.set_ylabel("Time Weights")
+            ax2.set_xlabel(self.period_index_col)
+            
+            plt.tight_layout()
+            
+            # Сохраняем график, если указан путь
+            if save_path:
+                plt.savefig(save_path, dpi=300, bbox_inches='tight')
+            
+            # Отображаем график, если указано
+            if show:
+                plt.show()
+                
+            return fig
+        
+        except Exception as e:
+            print(f"Error building Synthetic DID plot: {str(e)}")
+            # В случае ошибки возвращаем пустой график
+            fig, ax = plt.subplots(figsize=figsize)
+            ax.text(0.5, 0.5, f"Error building plot: {str(e)}", 
+                  ha='center', va='center', transform=ax.transAxes)
+            if show:
+                plt.show()
+            return fig
+    
+    def plot_cumulative_effect(self, treatment_date=None, figsize=(12, 6), title=None, 
+                             xlabel=None, ylabel=None, show=False):
+        """
+        Визуализация кумулятивного эффекта между фактическими и предсказанными значениями.
+        
+        Parameters
+        ----------
+        treatment_date : int, optional
+            Дата воздействия. Если None, берется из модели.
+        figsize : tuple, default=(12, 6)
+            Размер графика
+        title : str, optional
+            Заголовок графика
+        xlabel : str, optional
+            Подпись оси X
+        ylabel : str, optional
+            Подпись оси Y
+        show : bool, default=False
+            Отображать ли график автоматически
+            
+        Returns
+        -------
+        matplotlib.figure.Figure
+            Объект фигуры matplotlib
+        """
+        from .visualization import plot_cumulative_effect
+        
+        # Проверка, что модель обучена
+        if not hasattr(self, 'model_'):
+            raise ValueError("Модель должна быть обучена перед визуализацией. Вызовите метод fit().")
+        
+        # Получаем предсказания
+        predictions = self.predict()
+        
+        # Используем дату воздействия из модели, если не указана
+        if treatment_date is None:
+            treatment_date = self.treatment_date
+        
+        # Формируем заголовок, если не указан
+        if title is None:
+            title = f"Cumulative Effect of Synthetic DID"
+            
+        # Подписи осей по умолчанию
+        if xlabel is None:
+            xlabel = self.period_index_col
+        if ylabel is None:
+            ylabel = "Cumulative Difference"
+        
+        return plot_cumulative_effect(
+            data=self.data,
+            metric=self.outcome_col,
+            period_index=self.period_index_col,
+            treated=self.treat_col,
+            predictions=predictions,
+            treatment_date=treatment_date,
+            figsize=figsize,
+            title=title,
+            xlabel=xlabel,
+            ylabel=ylabel,
+            show=show
+        )

@@ -1,142 +1,122 @@
-# План разработки библиотеки Synthetic Control
+# SynthCtrl
 
-## 1. Архитектура библиотеки
+A Python library for implementing Synthetic Control methods for causal inference, including the Classical Synthetic Control method and Synthetic Difference-in-Differences (SDID).
 
-### 1.1 Структура проекта
-```
-new_library/
-├── synthetic_control/
-│   ├── __init__.py
-│   ├── base.py           # Базовый класс SyntheticControl
-│   ├── estimators.py     # Реализации различных оценщиков
-│   ├── utils.py          # Вспомогательные функции
-│   └── visualization.py  # Функции для визуализации
-├── tests/
-│   ├── __init__.py
-│   ├── test_base.py
-│   ├── test_estimators.py
-│   ├── test_utils.py
-│   └── test_visualization.py
-├── examples/
-│   └── basic_usage.ipynb
-├── setup.py
-├── requirements.txt
-└── README.md
+[![PyPI version](https://badge.fury.io/py/SynthCtrl.svg)](https://badge.fury.io/py/SynthCtrl)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## Overview
+
+Synthetic Control is a statistical method used for comparative case studies. It constructs a weighted combination of control units to create a synthetic version of the treated unit, allowing for the estimation of causal effects in settings where a single unit receives treatment and multiple units remain untreated.
+
+This library provides implementations of:
+
+- **Classical Synthetic Control** (Abadie & Gardeazabal, 2003)
+- **Synthetic Difference-in-Differences** (Arkhangelsky et al., 2021)
+
+## Installation
+
+```bash
+pip install SynthCtrl
 ```
 
-### 1.2 Основные компоненты
-- Базовый класс `SyntheticControl`
-- Оценщики:
-  - Классический Synthetic Control
-  - Synthetic Difference-in-Differences
-  - Взвешенный Synthetic Control
-- Утилиты для:
-  - Предобработки данных
-  - Валидации входных данных
-  - Вычисления метрик качества
-- Визуализация результатов
+## Features
 
-## 2. Этапы разработки
+- Easy-to-use API with scikit-learn-like interfaces
+- Automatic treatment date determination
+- Bootstrap for statistical inference
+- Comprehensive visualization tools
+- Detailed documentation and examples
 
-### Этап 1: Базовая структура и тестирование
-1. Создание базовой структуры проекта
-2. Настройка окружения разработки
-3. Создание базового класса `SyntheticControl`
-4. Написание unit-тестов для базового класса
+## Quick Start
 
-### Этап 2: Реализация основных оценщиков
-1. Реализация классического Synthetic Control
-2. Реализация Synthetic Difference-in-Differences
-3. Написание unit-тестов для каждого оценщика
-4. Интеграционные тесты
+```python
+import pandas as pd
+from synthetic_control import ClassicSyntheticControl
 
-### Этап 3: Утилиты и предобработка
-1. Реализация функций предобработки данных
-2. Создание валидаторов входных данных
-3. Реализация метрик качества
-4. Тестирование утилит
+# Load data
+data = pd.read_csv("california_smoking.csv")
 
-### Этап 4: Визуализация
-1. Реализация функций визуализации
-2. Создание примеров использования
-3. Тестирование визуализации
+# Initialize model
+sc = ClassicSyntheticControl(
+    data=data,
+    metric="cigarettes",
+    period_index="year",
+    unit_id="state",
+    treated="california",
+    after_treatment="after_treatment"
+)
 
-### Этап 5: Документация и примеры
-1. Написание документации
-2. Создание примеров использования
-3. Создание Jupyter notebooks с примерами
+# Fit model
+sc.fit()
 
-## 3. Тестирование
+# Predict counterfactual values
+predictions = sc.predict()
 
-### 3.1 Unit-тесты
-- Тестирование базового класса
-- Тестирование каждого оценщика
-- Тестирование утилит
-- Тестирование визуализации
+# Estimate treatment effect
+effect = sc.estimate_effect()
+print(f"Average Treatment Effect: {effect['att']:.4f}")
 
-### 3.2 Интеграционные тесты
-- Тестирование полного пайплайна
-- Тестирование на реальных данных
-- Тестирование производительности
+# Bootstrap for statistical inference
+bootstrap_results = sc.bootstrap_effect()
+print(f"Standard Error: {bootstrap_results['se']:.2f}")
+print(f"95% CI: [{bootstrap_results['ci_lower']:.2f}, {bootstrap_results['ci_upper']:.2f}]")
 
-### 3.3 Тестовые данные
-- Синтетические данные
-- Реальные данные (smoking.csv)
-- Данные для edge cases
+# Visualize results
+sc.plot_model_results(figsize=(14, 7), show=True)
+```
 
-## 4. Требования к коду
+### Using Synthetic Difference-in-Differences
 
-### 4.1 Качество кода
-- Соблюдение PEP 8
-- Типизация (type hints)
-- Документация (docstrings)
-- Логирование
+```python
+from synthetic_control import SyntheticDIDModel
 
-### 4.2 Производительность
-- Оптимизация вычислений
-- Векторизация операций
-- Кэширование промежуточных результатов
+# Initialize SDID model
+sdid_model = SyntheticDIDModel(
+    data=data,
+    metric="cigarettes",
+    period_index="year", 
+    unit_id="state",
+    treated="california",
+    after_treatment="after_treatment"
+)
 
-## 5. Документация
+# Fit model
+sdid_model.fit()
 
-### 5.1 API документация
-- Описание всех классов и методов
-- Примеры использования
-- Описание параметров
+# Visualize results
+sdid_model.plot_model_results(figsize=(14, 7), show=True)
+```
 
-### 5.2 Руководство пользователя
-- Установка
-- Базовое использование
-- Расширенные примеры
-- FAQ
+## Documentation
 
-## 6. Публикация
+For detailed documentation, visit the [GitHub pages](https://github.com/123yaroslav/SynthCtrl).
 
-### 6.1 Подготовка к публикации
-- Настройка setup.py
-- Создание пакета
-- Тестирование установки
+## Examples
 
-### 6.2 Публикация
-- PyPI
-- GitHub
-- Документация на ReadTheDocs 
+The `examples/` directory contains Jupyter notebooks demonstrating various use cases:
 
-## 7. Реализованные методы
+- Basic usage with California smoking data
+- Advanced features and customization
+- Comparison of different methods
 
-### 7.1 Классический Synthetic Control
-Классический метод Synthetic Control (Abadie & Gardeazabal, 2003) позволяет создать синтетическую контрольную группу как взвешенную комбинацию доступных контрольных единиц. Веса оптимизируются таким образом, чтобы минимизировать различия между обработанной единицей и синтетическим контролем в период до воздействия.
+## Citation
 
-### 7.2 Synthetic Difference-in-Differences (SDID)
-Метод Synthetic Difference-in-Differences (Arkhangelsky et al., 2021) объединяет идеи методов Synthetic Control и Difference-in-Differences. Этот метод использует веса как для единиц, так и для временных периодов, что позволяет более точно оценивать эффект воздействия в тех случаях, когда классические методы могут давать смещенные оценки.
+If you use this library in your research, please cite:
 
-Основные особенности:
-- Оптимизация весов как для единиц наблюдения, так и для временных периодов
-- Регуляризация для улучшения устойчивости оценок
-- Оценка стандартных ошибок с помощью плацебо-подхода
-- Возможность использования нескольких обработанных единиц
+```
+@software{SynthCtrl_python,
+  author = {Yaroslav Rogoza},
+  title = {SynthCtrl: A Python Library for Causal Inference},
+  year = {2023},
+  url = {https://github.com/123yaroslav/SynthCtrl},
+}
+```
 
-### 7.3 Дополнительные функции
-- Визуализация результатов
-- Статистические тесты
-- Оценка качества подгонки 
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. 

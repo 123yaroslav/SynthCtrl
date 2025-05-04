@@ -1,5 +1,4 @@
-from .base import SyntheticControl
-from .estimators import ClassicSyntheticControl, SyntheticDIDModel
+from .estimators import ClassicSyntheticControl, SyntheticDIDModel, SyntheticControl
 from .utils import (
     validate_data,
     calculate_rmse,
@@ -11,14 +10,17 @@ from .visualization import (
     plot_synthetic_control,
     plot_effect_distribution,
     plot_weights,
-    plot_synthetic_did,
-    plot_synthetic_diff_in_diff
+    plot_cumulative_effect,
+    plot_model_results,
+    plot_synthetic_diff_in_diff,
+    _plot_classic_synthetic_control,
+    _plot_synthetic_diff_in_diff_model
 )
 
 __all__ = [
-    'SyntheticControl',
     'ClassicSyntheticControl',
     'SyntheticDIDModel',
+    'SyntheticControl',
     'validate_data',
     'calculate_rmse',
     'calculate_r2',
@@ -27,6 +29,9 @@ __all__ = [
     'plot_synthetic_control',
     'plot_effect_distribution',
     'plot_weights',
-    'plot_synthetic_did',
-    'plot_synthetic_diff_in_diff'
+    'plot_cumulative_effect',
+    'plot_model_results',
+    'plot_synthetic_diff_in_diff',
+    '_plot_classic_synthetic_control',
+    '_plot_synthetic_diff_in_diff_model'
 ] 

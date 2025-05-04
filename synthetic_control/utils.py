@@ -8,57 +8,57 @@ def validate_data(
     required_columns: List[str]
 ) -> None:
     """
-    Проверка наличия необходимых колонок в данных.
+    Validate the presence of required columns in the data.
     
     Parameters
     ----------
     data : pd.DataFrame
-        DataFrame с данными
+        DataFrame with data
     required_columns : List[str]
-        Список необходимых колонок
+        List of required columns
         
     Raises
     ------
     ValueError
-        Если отсутствуют необходимые колонки
+        If required columns are missing
     """
     missing_columns = [col for col in required_columns if col not in data.columns]
     if missing_columns:
-        raise ValueError(f"Отсутствуют необходимые колонки: {missing_columns}")
+        raise ValueError(f"Missing required columns: {missing_columns}")
 
 def calculate_rmse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """
-    Вычисление RMSE между истинными и предсказанными значениями.
+    Calculate RMSE between true and predicted values.
     
     Parameters
     ----------
     y_true : np.ndarray
-        Истинные значения
+        True values
     y_pred : np.ndarray
-        Предсказанные значения
+        Predicted values
         
     Returns
     -------
     float
-        Значение RMSE
+        RMSE value
     """
     return np.sqrt(np.mean((y_true - y_pred)**2))
 
 def calculate_r2(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """
-    Вычисление R² между истинными и предсказанными значениями.
+    Calculate R² between true and predicted values.
     
     Parameters
     ----------
     y_true : np.ndarray
-        Истинные значения
+        True values
     y_pred : np.ndarray
-        Предсказанные значения
+        Predicted values
         
     Returns
     -------
     float
-        Значение R²
+        R² value
     """
     ss_res = np.sum((y_true - y_pred)**2)
     ss_tot = np.sum((y_true - np.mean(y_true))**2)
@@ -69,19 +69,19 @@ def calculate_confidence_intervals(
     alpha: float = 0.05
 ) -> Dict[str, float]:
     """
-    Вычисление доверительных интервалов для эффектов.
+    Calculate confidence intervals for effects.
     
     Parameters
     ----------
     effects : np.ndarray
-        Массив эффектов
+        Array of effects
     alpha : float, default=0.05
-        Уровень значимости
+        Significance level
         
     Returns
     -------
     Dict[str, float]
-        Словарь с границами доверительного интервала
+        Dictionary with confidence interval bounds
     """
     se = np.std(effects, ddof=1)
     z = norm.ppf(1 - alpha / 2)
@@ -101,33 +101,31 @@ def prepare_data_for_synthetic_control(
     after_treatment: str
 ) -> Dict[str, Union[pd.DataFrame, np.ndarray]]:
     """
-    Подготовка данных для Synthetic Control.
+    Prepare data for Synthetic Control.
     
     Parameters
     ----------
     data : pd.DataFrame
-        Исходные данные
+        Original data
     metric : str
-        Название метрики
+        Metric name
     period_index : str
-        Название колонки с периодами
+        Name of the period column
     shopno : str
-        Название колонки с идентификаторами магазинов
+        Name of the unit identifier column
     treated : str
-        Название колонки, указывающей на обработанные единицы
+        Name of the column indicating treated units
     after_treatment : str
-        Название колонки, указывающей на периоды после вмешательства
+        Name of the column indicating periods after intervention
         
     Returns
     -------
     Dict[str, Union[pd.DataFrame, np.ndarray]]
-        Словарь с подготовленными данными
+        Dictionary with prepared data
     """
-    # Проверка наличия необходимых колонок
     required_columns = [metric, period_index, shopno, treated, after_treatment]
     validate_data(data, required_columns)
     
-    # Подготовка данных для контрольных единиц
     df_pre_control = (data
         .query(f"not {treated}")
         .query(f"not {after_treatment}")
@@ -136,7 +134,6 @@ def prepare_data_for_synthetic_control(
                values=metric)
     )
     
-    # Подготовка данных для обработанных единиц
     y = (data
         .query(f"not {after_treatment}")
         .query(f"{treated}")
