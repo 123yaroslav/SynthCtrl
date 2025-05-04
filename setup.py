@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
 import os
 
-# Read the contents of the README file
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), 
           encoding='utf-8') as f:
     long_description = f.read()
@@ -39,7 +38,6 @@ setup(
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Science/Research",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",

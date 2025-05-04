@@ -2,8 +2,12 @@
 
 A Python library for implementing Synthetic Control methods for causal inference, including the Classical Synthetic Control method and Synthetic Difference-in-Differences (SDID).
 
-[![PyPI version](https://badge.fury.io/py/SynthCtrl.svg)](https://badge.fury.io/py/SynthCtrl)
+[![PyPI version](https://img.shields.io/pypi/v/SynthCtrl.svg)](https://pypi.org/project/SynthCtrl/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/SynthCtrl.svg)](https://pypi.org/project/SynthCtrl/)
+[![GitHub Actions CI](https://github.com/123yaroslav/SynthCtrl/actions/workflows/python-tests.yml/badge.svg)](https://github.com/123yaroslav/SynthCtrl/actions/workflows/python-tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Dependencies Status](https://img.shields.io/librariesio/github/123yaroslav/SynthCtrl)](https://libraries.io/github/123yaroslav/SynthCtrl)
+[![GitHub issues](https://img.shields.io/github/issues/123yaroslav/SynthCtrl.svg)](https://github.com/123yaroslav/SynthCtrl/issues)
 
 ## Overview
 
